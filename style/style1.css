@@ -2,9 +2,30 @@ html {
   background-color: #078187;
 }
 
+h1  {
+  color: brown;
+  background-color: green;
+  padding:2px 2px 2px 2px;
+}
 
-p{
-  color: #a35b0a;
-  font-size:100px;
-  text-align: center;
+h2  {
+  color: blue;
+}
+
+h3  {
+  color: red;
+}
+
+p,
+ul  {
+  color: #ffffa0;
+  line-height:5;
+  background-color: blue;
+  padding:2px 2px 2px 2px;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
