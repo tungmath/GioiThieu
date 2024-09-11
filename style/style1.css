@@ -1,9 +1,9 @@
 html {
-  background-color: #56f080;
+  background-color:    #06d9dd  ;
 }
 
 body  {
-  background-color: yellow;
+  background-color: #aac58f;
   width: 600px;
   border: 2px solid red;
   padding: 50px 50px;
@@ -11,10 +11,7 @@ body  {
 }
 
 h1  {
-  color: brown;
-  border: 1px solid black;
-  padding: 10px 10px 10px 10px;
-  margin:0 50px;
+  color: blue;
   text-align: center;
   text-shadow: 3px 1px 1px black;
 }
@@ -22,7 +19,8 @@ h1  {
 p,
 ol {
   line-height:2;
-  background-color: gray;
+  background-color: white;
+  padding: 10px 10px;
 }
 
 img {
@@ -30,4 +28,9 @@ img {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+.note {
+  color: green;
+  font-size:12px;
 }
