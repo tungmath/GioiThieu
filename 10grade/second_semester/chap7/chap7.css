@@ -1,0 +1,19 @@
+body {
+    width: 700px;
+    margin: auto;
+}
+h1,p {
+    font-size:20pt;
+    color: black;
+    text-align: center;
+}
+
+.ques {
+    font-size:30pt;
+    text-align: center;
+    color: black;
+}
+
+button {
+    text-align: right;
+}
