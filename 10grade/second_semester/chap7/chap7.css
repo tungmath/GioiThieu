@@ -4,19 +4,19 @@ body {
     font-family:'Times New Roman', Times, serif;
 }
 h1 {
-    font-size:20pt;
+    font-size:40pt;
     color: black;
     text-align: center;
 }
 
 .question {
-    font-size:20pt;
+    font-size:40pt;
     text-align: center;
     color: blue;
 }
 
 .choice {
-    font-size: 15pt;
+    font-size:40pt;
     color:red;
     text-align: center;
     vertical-align: 1em;
