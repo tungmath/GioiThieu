@@ -1,40 +1,42 @@
 body {
-    width: auto;
+    width:900px;
     margin: auto;
     font-family:'Times New Roman', Times, serif;
 }
 h1 {
-    font-size:40pt;
+    font-size:50pt;
     color: black;
     text-align: center;
 }
 
 .question {
-    font-size:40pt;
+    font-size:50pt;
     text-align: center;
     color: blue;
 }
 
 .choice {
-    font-size:40pt;
+    font-size:50pt;
     color:red;
     text-align: center;
     vertical-align: 1em;
     font-family: 'Times New Roman', Times, serif;
-    width: 200px;
+    width: 350px;
 }
 .correct{
     background-color: green;
     color:black;
 }
-#mark {
+#result {
     color: red;
     font-weight: bolder;
     text-align: center;
+    font-size: 50pt;
 }
 
 #restart {
     color:green;
     font-weight:bolder;
     text-align: center;
+    font-size: 50pt;
 }
