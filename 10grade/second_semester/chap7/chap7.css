@@ -1,10 +1,15 @@
 body {
-    width:900px;
-    margin: auto;
+    width:1300px;
+    margin: 100px;
     font-family:'Times New Roman', Times, serif;
+    font-size: 30pt;
+    background-color:darkseagreen;
+    margin-left: 10ex;
+    margin-right: 10ex;
 }
 h1 {
     font-size:50pt;
+    font-weight:normal;
     text-align: center;
 }
 
@@ -18,7 +23,7 @@ h1 {
     text-align: center;
     vertical-align: 1em;
     font-family: 'Times New Roman', Times, serif;
-    width: 500px;
+    width: 700px;
     height:150px;
     border-color: black;
     border-width:0.2ex;
@@ -27,20 +32,17 @@ h1 {
     background-color: yellow;
     color:red;
     border-color:green;
-    border-width:0.5ex;
+    border-width:0.25ex;
 }
-#result {
+#result,#restart {
     font-weight: bolder;
     text-align: center;
     font-size: 50pt;
     background-color:darkgoldenrod;
-    border-width:0.5ex;
+    border-width:0.25ex;
 }
 
-#restart {
-    font-weight:bolder;
+#button{
     text-align: center;
-    font-size: 50pt;
-    background-color: darkgoldenrod;
-    border-width:0.5ex;
 }
+

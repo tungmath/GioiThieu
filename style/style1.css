@@ -1,5 +1,5 @@
 html {
-  background-color:    #06d9dd  ;
+  background-color: #fffff0;
 }
 
 body  {
@@ -11,26 +11,21 @@ body  {
 }
 
 h1  {
-  color: blue;
+  background-color: white;
   text-align: center;
-  text-shadow: 3px 1px 1px black;
 }
 
 p,
 ol {
   line-height:2;
   background-color: white;
-  padding: 10px 10px;
+  padding: 0px 10px 0px 50px;
 }
 
-img {
-  width:400px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+li{
+  line-height: 2;
 }
 
-.note {
-  color: green;
-  font-size:12px;
+span {
+  font-style: italic;
 }
