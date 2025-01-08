@@ -5,38 +5,36 @@ body {
 }
 h1 {
     font-size:50pt;
-    color: black;
     text-align: center;
 }
 
 .question {
     font-size:50pt;
     text-align: center;
-    color: blue;
 }
 
 .choice {
     font-size:50pt;
-    color:red;
     text-align: center;
     vertical-align: 1em;
     font-family: 'Times New Roman', Times, serif;
-    width: 350px;
+    width: 500px;
+    height:150px;
 }
 .correct{
-    background-color: green;
-    color:black;
+    background-color: yellow;
+    color:red;
 }
 #result {
-    color: red;
     font-weight: bolder;
     text-align: center;
     font-size: 50pt;
+    background-color:darkgoldenrod;
 }
 
 #restart {
-    color:green;
     font-weight:bolder;
     text-align: center;
     font-size: 50pt;
+    background-color: darkgoldenrod;
 }
