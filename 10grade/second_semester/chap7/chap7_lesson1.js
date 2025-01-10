@@ -276,9 +276,9 @@ function ghiPhuongTrinh(eq){// trả về chuỗi phương trình dạng MathML 
 // 1. TRẮC NGHIỆM HỎI NGHIỆM:
 
 function taoTracNghiem_HoiNghiem(){// câu hỏi trắc nghiệm dạng hỏi nghiệm phương trình.
-    console.log(`Hỏi nghiệm`);
+
     let eq=taoPhuongTrinh();// tạo phương trình tùy ý ra 2 nghiệm hữu tỉ (chưa nhận loại).
-    console.log(eq);
+
     let x_1=``, x_2=``, zeroindex=0;
     let x1= new Fraction(1,1), x2 = new Fraction(1,1);
     if (eq.length===8){
@@ -299,14 +299,14 @@ function taoTracNghiem_HoiNghiem(){// câu hỏi trắc nghiệm dạng hỏi ng
     if (x1.denom===1){
         x_1=`${x1.numer}`;
     }else{
-        x_1=`\\frac{${x1.numer}}{${x1.denom}}`;
+        x_1=`\\dfrac{${x1.numer}}{${x1.denom}}`;
     };
     choices.push(katex.renderToString(`${x_1}`));
 
     if (x2.denom===1){
        x_2=`${x2.numer}`;
     }else{
-        x_2=`\\frac{${x2.numer}}{${x2.denom}}`;
+        x_2=`\\dfrac{${x2.numer}}{${x2.denom}}`;
     };
     choices.push(katex.renderToString(`${x_2}`));
 
@@ -314,10 +314,26 @@ function taoTracNghiem_HoiNghiem(){// câu hỏi trắc nghiệm dạng hỏi ng
 
     choicesElement.innerHTML = '';
     let i=0;
+    let userChoice=[];
     for (const choice of choices){
         choicesElement.innerHTML += `<button class="choice" id="choice${i}"><li>${choice}</li></button><br>`;
         i++;
     }
+
+    // người dùng chọn đáp án nào thì đáp án đó xanh lá, các đáp án khác về bình thường.
+    for (let a=0 ; a<4 ; a++){
+        userChoice.push(document.getElementById('choice'+a));
+        userChoice[a].addEventListener('click', () => {
+            userChoice[a].classList.add('userchoice');
+            for (let i=0 ; i<4 ; i++){
+                if (i!=a){
+                    userChoice[i].classList.remove('userchoice');
+                }
+            }
+        });
+    }
+
+    // hiện đáp án đúng.
     const correctAnswer = document.getElementById('choice'+zeroindex);// chỉ số của lựa chọn đúng nghiệm.
     resultButton.addEventListener('click', () => {
         correctAnswer.classList.add('correct');
@@ -328,7 +344,7 @@ function taoTracNghiem_HoiNghiem(){// câu hỏi trắc nghiệm dạng hỏi ng
 // 2. TRẮC NGHIỆM HỎI TỔNG:
 
 function taoTracNghiem_HoiTong(){// câu hỏi trắc nghiệm dạng hỏi Tổng các nghiệm phương trình.
-    console.log(`Hỏi tổng`);
+
     let eq = [];
     let x_1=``, x_2=``, sumindex=0;
     let x1= new Fraction(1,1), x2 = new Fraction(1,1);
@@ -337,7 +353,6 @@ function taoTracNghiem_HoiTong(){// câu hỏi trắc nghiệm dạng hỏi Tổ
     let nice=0;
     while (nice!=1){
         eq =taoPhuongTrinh();
-        console.log(eq);
         // lấy nghiệm và số nghiệm thỏa.
         if (eq.length===8){
             x1=eq[5], x2=eq[6], sumindex=eq[7];
@@ -349,10 +364,10 @@ function taoTracNghiem_HoiTong(){// câu hỏi trắc nghiệm dạng hỏi Tổ
         if (x1.numer*x2.numer!=0 && x1.numer*x2.denom!=x2.numer*x1.denom && sumindex>0){
         // phương trình thỏa yêu cầu tạo đề khi ra 2 nghiệm khác nhau, khác 0 và nhận ít nhất 1 nghiệm.
             nice=1; // tìm thấy pt thỏa.
-            console.log(eq);
         }
     }
     
+    content.innerHTML = '<b>Tổng</b> các nghiệm của phương trình dưới đây bằng bao nhiêu?';
     // ghi phương trình.
     question.innerHTML = ghiPhuongTrinh(eq); 
 
@@ -363,14 +378,14 @@ function taoTracNghiem_HoiTong(){// câu hỏi trắc nghiệm dạng hỏi Tổ
     if (x1.denom===1){
         x_1=`${x1.numer}`;
     }else{
-        x_1=`\\frac{${x1.numer}}{${x1.denom}}`;
+        x_1=`\\dfrac{${x1.numer}}{${x1.denom}}`;
     };
     choices.push(katex.renderToString(`${x_1}`));
 
     if (x2.denom===1){
        x_2=`${x2.numer}`;
     }else{
-        x_2=`\\frac{${x2.numer}}{${x2.denom}}`;
+        x_2=`\\dfrac{${x2.numer}}{${x2.denom}}`;
     };
     choices.push(katex.renderToString(`${x_2}`));
 
@@ -378,20 +393,35 @@ function taoTracNghiem_HoiTong(){// câu hỏi trắc nghiệm dạng hỏi Tổ
     if (sum.denom===1){
         sum=`${sum.numer}`;
      }else{
-         sum=`\\frac{${sum.numer}}{${sum.denom}}`;
+         sum=`\\dfrac{${sum.numer}}{${sum.denom}}`;
      };
     choices.push(katex.renderToString(`${sum}`));
 
-    content.innerHTML = '<b>Tổng</b> các nghiệm của phương trình dưới đây bằng bao nhiêu?';
     choicesElement.innerHTML = '';
     let i=0;
+    let userChoice=[];
     for (const choice of choices){
         choicesElement.innerHTML += `<button class="choice" id="choice${i}"><li>${choice}</li></button><br>`;
         i++;
     }
-    const correctAnswer = document.getElementById('choice'+sumindex);// chỉ số của lựa chọn đúng tổng nghiệm.
+
+    // người dùng chọn đáp án nào thì đáp án đó xanh lá, các đáp án khác về bình thường.
+    for (let a=0 ; a<4 ; a++){
+        userChoice.push(document.getElementById('choice'+a));
+        userChoice[a].addEventListener('click', () => {
+            userChoice[a].classList.add('userchoice');
+            for (let i=0 ; i<4 ; i++){
+                if (i!=a){
+                    userChoice[i].classList.remove('userchoice');
+                }
+            }
+        });
+    }
+
+    // hiện đáp án đúng.
+    const correctChoice = document.getElementById('choice'+sumindex);// chỉ số của lựa chọn đúng tổng nghiệm.
     resultButton.addEventListener('click', () => {
-        correctAnswer.classList.add('correct');
+        correctChoice.classList.add('correct');
     });
 }
 
@@ -402,7 +432,7 @@ let resultButton = document.querySelector('#result');
 
 let restartButton = document.querySelector("#restart");
 restartButton.addEventListener("click", () => {
-    switch (Math.floor(Math.random()*2)) { //nhân 2 do mới có 2 câu hỏi. DÙNG FLOOR ĐỂ LÀM TRÒN XUỐNG
+    switch (Math.floor(Math.random()*2)) { // nhân 2 do mới có 2 câu hỏi. DÙNG FLOOR ĐỂ LÀM TRÒN XUỐNG
         case 0:
             taoTracNghiem_HoiNghiem();
             break;

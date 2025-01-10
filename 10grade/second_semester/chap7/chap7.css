@@ -3,37 +3,44 @@ body {
     margin: 100px;
     font-family:'Times New Roman', Times, serif;
     font-size: 30pt;
-    background-color:blanchedalmond;
+    background-color:aquamarine;
     margin-left: 10ex;
     margin-right: 10ex;
 }
+
 h1 {
     font-size:40pt;
     font-weight:normal;
     text-align: center;
+    background-color: white;
 }
 
 .question {
     font-size:30pt;
     text-align: center;
+    background-color: white;
 }
 
 .choice {
-    font-size:30pt;
+    font-size:40pt;
     text-align: center;
     vertical-align: 2em;
     font-family: 'Times New Roman', Times, serif;
-    width: 700px;
-    height:150px;
+    width: 950px;
+    height:200px;
     border-color: black;
     border-width:0.2ex;
 }
-.correct{
-    background-color: yellow;
-    color:red;
-    border-color:green;
-    border-width:0.25ex;
+
+.correct{ /* đáp an đúng */
+    border-color:rgb(229, 113, 4);
+    border-width:0.75ex;
 }
+
+.userchoice { /* đáp án người dùng chọn*/
+    background-color:gray;
+}
+
 #result,#restart {
     font-weight: bolder;
     text-align: center;
@@ -42,7 +49,8 @@ h1 {
     border-width:0.25ex;
 }
 
-#button{
+button,#button{
     text-align: center;
+    border-radius: 20px;
 }
 
