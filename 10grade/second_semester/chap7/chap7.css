@@ -3,7 +3,7 @@ body {
     margin: 100px;
     font-family:'Times New Roman', Times, serif;
     font-size: 30pt;
-    background-color:aquamarine;
+    background-color:burlywood;
     margin-left: 10ex;
     margin-right: 10ex;
 }
@@ -12,13 +12,13 @@ h1 {
     font-size:40pt;
     font-weight:normal;
     text-align: center;
-    background-color: white;
+    height: 150px;
 }
 
 .question {
     font-size:30pt;
+    height: 100px;
     text-align: center;
-    background-color: white;
 }
 
 .choice {
@@ -33,8 +33,8 @@ h1 {
 }
 
 .correct{ /* đáp an đúng */
-    border-color:rgb(229, 113, 4);
-    border-width:0.75ex;
+    border-color:red;
+    border-width:1ex;
 }
 
 .userchoice { /* đáp án người dùng chọn*/
@@ -44,9 +44,10 @@ h1 {
 #result,#restart {
     font-weight: bolder;
     text-align: center;
+    width: 400px;
     font-size: 50pt;
     background-color:darkgoldenrod;
-    border-width:0.25ex;
+    border-width:0.2ex;
 }
 
 button,#button{

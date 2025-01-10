@@ -1,11 +1,11 @@
 // Dạng phương trình: căn tam thức = căn tam thức và căn tam thức = nhị thức.
 // Các dạng trắc nghiệm, đúng sai, trả lời ngắn:
 // 1. Hỏi nghiệm, 
-// 2. số nghiệm,
-// 3. tổng nghiệm,
+// 2. tổng nghiệm,
+// 3. số nghiệm,
 // 4. tích nghiệm,
-// 5. nghiệm lớn/nhỏ trừ/chia nghiệm nhỏ/lớn.
-// 6. tổng bình phương các nghiệm.
+// 5. tổng bình phương các nghiệm.
+// 6. nghiệm lớn/nhỏ trừ/chia nghiệm nhỏ/lớn.
 
 function gcd(a,b) {
     let num=1;
@@ -221,7 +221,7 @@ function taoPhuongTrinh_CanBangNhiThuc() {// Tạo các phương trình khi bi�
     return [a,b,c,d,e,x1,x2,zeroindex];
 };
 
-function taoPhuongTrinh(){// Tạo các phương trình khi biến đổi thì ra 2 nghiệm hữu tỉ khác nhau (chưa biết nhận hay không).
+function taoPhuongTrinh(){// Tạo các phương trình dạng có căn theo sgk toán 10 hk 2 chương trình 2018, khi biến đổi thì ra 2 nghiệm hữu tỉ khác nhau (chưa biết nhận hay không).
     if (Math.round(Math.random())===0){
         return taoPhuongTrinh_CanBangCan();
     }else{
@@ -425,6 +425,254 @@ function taoTracNghiem_HoiTong(){// câu hỏi trắc nghiệm dạng hỏi Tổ
     });
 }
 
+// 3. TRẮC NGHIỆM HỎI SỐ NGHIỆM
+
+function taoTracNghiem_SoNghiem(){// câu hỏi trắc nghiệm dạng hỏi SỐ nghiệm phương trình.
+
+    let eq=taoPhuongTrinh();// tạo phương trình tùy ý ra 2 nghiệm hữu tỉ (chưa nhận loại).
+
+    let x_1=``, x_2=``, zeronum=0;
+    let x1= new Fraction(1,1), x2 = new Fraction(1,1);
+    if (eq.length===8){
+        x1=eq[5], x2=eq[6], zeronum=eq[7];
+    }else{
+        if (eq.length===9){
+            x1=eq[6], x2=eq[7], zeronum=eq[8];
+        }
+    }
+
+    content.innerHTML = 'Phương trình sau có tất cả <b>bao nhiêu nghiệm</b>?';
+    question.innerHTML = ghiPhuongTrinh(eq); 
+
+    choices = [];
+    choices.push(katex.renderToString(`${0}`));
+    choices.push(katex.renderToString(`${1}`));
+    choices.push(katex.renderToString(`${2}`));
+    choices.push(katex.renderToString(`${3}`));
+
+
+    choicesElement.innerHTML = '';
+    let i=0;
+    let userChoice=[];
+    for (const choice of choices){
+        choicesElement.innerHTML += `<button class="choice" id="choice${i}"><li>${choice}</li></button><br>`;
+        i++;
+    }
+
+    // người dùng chọn đáp án nào thì đáp án đó xanh lá, các đáp án khác về bình thường.
+    for (let a=0 ; a<4 ; a++){
+        userChoice.push(document.getElementById('choice'+a));
+        userChoice[a].addEventListener('click', () => {
+            userChoice[a].classList.add('userchoice');
+            for (let i=0 ; i<4 ; i++){
+                if (i!=a){
+                    userChoice[i].classList.remove('userchoice');
+                }
+            }
+        });
+    }
+
+    // hiện đáp án đúng.
+    if (zeronum===1 || zeronum===2){ // chỉ số nhgiem65 là 1, 2 thì có 1 nghiệm.
+        zeronum=1;
+    }else{
+        if (zeronum===3){ // chỉ số nghiệm là 3 thì có 2 nghiệm.
+            zeronum=2;
+        }
+    }
+    const correctAnswer = document.getElementById('choice'+zeronum);// chỉ số của lựa chọn đúng nghiệm.
+    resultButton.addEventListener('click', () => {
+        correctAnswer.classList.add('correct');
+    });
+}
+
+
+// 4. TRẮC NGHIỆM HỎI TÍCH CÁC NGHIỆM
+function taoTracNghiem_HoiTich(){// câu hỏi trắc nghiệm dạng hỏi Tích các nghiệm phương trình.
+
+    let eq = [];
+    let x_1=``, x_2=``, zeroindex=0;
+    let x1= new Fraction(1,1), x2 = new Fraction(1,1);
+
+    //tìm phương trình có 2 nghiệm khác nhau, đều khác 0 và 1 (ĐỀU NHẬN).
+    let nice=0;
+    while (nice!=1){
+        eq =taoPhuongTrinh();
+        // lấy nghiệm và số nghiệm thỏa.
+        if (eq.length===8){
+            x1=eq[5], x2=eq[6], zeroindex=eq[7];
+        }else{
+            if (eq.length===9){
+                x1=eq[6], x2=eq[7], zeroindex=eq[8];
+            }
+        }
+        
+        if (zeroindex===3){ // nhận cả hai nghiệm.
+            if ( x1.numer*x2.denom!=x2.numer*x1.denom && x1.numer/x1.denom!=0 && x1.numer/x1.denom!=1 && x2.numer/x2.denom!=0 && x2.numer/x2.denom!=1){
+            // phương trình thỏa yêu cầu tạo đề khi ra 2 nghiệm khác nhau và đều khác 0 và 1.
+                nice=1; // tìm thấy pt thỏa.
+            }
+        }
+    }
+    
+    content.innerHTML = '<b>Tích</b> các nghiệm của phương trình dưới đây bằng bao nhiêu?';
+    // ghi phương trình.
+    question.innerHTML = ghiPhuongTrinh(eq); 
+
+    choices = [];
+
+    if (x1.denom===1){
+        x_1=`${x1.numer}`;
+    }else{
+        x_1=`\\dfrac{${x1.numer}}{${x1.denom}}`;
+    };
+    choices.push(katex.renderToString(`${x_1}`));
+
+    if (x2.denom===1){
+       x_2=`${x2.numer}`;
+    }else{
+        x_2=`\\dfrac{${x2.numer}}{${x2.denom}}`;
+    };
+    choices.push(katex.renderToString(`${x_2}`));
+
+    let sum = new Fraction( x1.numer*x2.denom + x2.numer*x1.denom , x1.denom*x2.denom );
+    if (sum.denom===1){
+        sum=`${sum.numer}`;
+     }else{
+         sum=`\\dfrac{${sum.numer}}{${sum.denom}}`;
+     };
+    choices.push(katex.renderToString(`${sum}`));
+
+    let prod = new Fraction( x1.numer*x2.numer, x1.denom*x2.denom );
+    if (prod.denom===1){
+        prod=`${prod.numer}`;
+     }else{
+        prod =`\\dfrac{${prod.numer}}{${prod.denom}}`;
+     };
+    choices.push(katex.renderToString(`${prod}`));
+
+    choicesElement.innerHTML = '';
+    let i=0;
+    let userChoice=[];
+    for (const choice of choices){
+        choicesElement.innerHTML += `<button class="choice" id="choice${i}"><li>${choice}</li></button><br>`;
+        i++;
+    }
+
+    // người dùng chọn đáp án nào thì đáp án đó xanh lá, các đáp án khác về bình thường.
+    for (let a=0 ; a<4 ; a++){
+        userChoice.push(document.getElementById('choice'+a));
+        userChoice[a].addEventListener('click', () => {
+            userChoice[a].classList.add('userchoice');
+            for (let i=0 ; i<4 ; i++){
+                if (i!=a){
+                    userChoice[i].classList.remove('userchoice');
+                }
+            }
+        });
+    }
+
+    // hiện đáp án đúng.
+    const correctChoice = document.getElementById('choice3');// chỉ số của lựa chọn đúng tích nghiệm. hiện tại là choice3 do chưa trộn thứ tự.
+    resultButton.addEventListener('click', () => {
+        correctChoice.classList.add('correct');
+    });
+}
+
+// 5. TRẮC NGHIỆM HỎI TỔNG BÌNH PHƯƠNG CÁC NGHIỆM
+function taoTracNghiem_HoiTongBinhPhuong(){// câu hỏi trắc nghiệm dạng hỏi Tổng bình phương các nghiệm phương trình.
+
+    let eq = [];
+    let zeroindex=0;
+    //tìm phương trình có 2 nghiệm khác nhau, đều nhận.
+    let nice=0;
+    while (nice!=1){
+        eq =taoPhuongTrinh();
+        // lấy nghiệm và số nghiệm thỏa.
+        if (eq.length===8){
+            x1=eq[5], x2=eq[6], zeroindex=eq[7];
+        }else{
+            if (eq.length===9){
+                x1=eq[6], x2=eq[7], zeroindex=eq[8];
+            }
+        }
+        if (zeroindex===3){ // nhận cả hai nghiệm.
+            if ( x1.numer*x2.denom!=x2.numer*x1.denom && x1.numer/x1.denom!=0 && x2.numer/x2.denom!=0){
+            // phương trình thỏa yêu cầu tạo đề khi ra 2 nghiệm khác nhau và đều khác 0.
+                nice=1; // tìm thấy pt thỏa.
+            }
+        }
+    }
+    
+    content.innerHTML = '<b>Tổng bình phương</b> các nghiệm của phương trình dưới đây bằng bao nhiêu?';
+    // ghi phương trình.
+    question.innerHTML = ghiPhuongTrinh(eq); 
+
+    choices = [];
+    let x_0 = new Fraction(x1.numer*x2.numer,x1.denom*x2.denom);
+    let x_1 = new Fraction(x1.numer*x1.numer,x1.denom*x1.denom);
+    let x_2 = new Fraction(x2.numer*x2.numer,x2.denom*x2.denom);
+    let x_3 = new Fraction(x1.numer*x1.numer+x2.numer*x2.numer,x1.denom*x1.denom*x2.denom*x2.denom);
+    if (x1.denom===1){
+        x_1=`${x1.numer}`;
+    }else{
+        x_1=`\\dfrac{${x1.numer}}{${x1.denom}}`;
+    };
+    choices.push(katex.renderToString(`${x_1}`));
+
+
+    if (x2.denom===1){
+       x_2=`${x2.numer}`;
+    }else{
+        x_2=`\\dfrac{${x2.numer}}{${x2.denom}}`;
+    };
+    choices.push(katex.renderToString(`${x_2}`));
+
+    let sum = new Fraction( x1.numer*x2.denom + x2.numer*x1.denom , x1.denom*x2.denom );
+    if (sum.denom===1){
+        sum=`${sum.numer}`;
+     }else{
+         sum=`\\dfrac{${sum.numer}}{${sum.denom}}`;
+     };
+    choices.push(katex.renderToString(`${sum}`));
+
+    let prod = new Fraction( x1.numer*x2.numer, x1.denom*x2.denom );
+    if (prod.denom===1){
+        prod=`${prod.numer}`;
+     }else{
+        prod =`\\dfrac{${prod.numer}}{${prod.denom}}`;
+     };
+    choices.push(katex.renderToString(`${prod}`));
+
+    choicesElement.innerHTML = '';
+    let i=0;
+    let userChoice=[];
+    for (const choice of choices){
+        choicesElement.innerHTML += `<button class="choice" id="choice${i}"><li>${choice}</li></button><br>`;
+        i++;
+    }
+
+    // người dùng chọn đáp án nào thì đáp án đó xanh lá, các đáp án khác về bình thường.
+    for (let a=0 ; a<4 ; a++){
+        userChoice.push(document.getElementById('choice'+a));
+        userChoice[a].addEventListener('click', () => {
+            userChoice[a].classList.add('userchoice');
+            for (let i=0 ; i<4 ; i++){
+                if (i!=a){
+                    userChoice[i].classList.remove('userchoice');
+                }
+            }
+        });
+    }
+
+    // hiện đáp án đúng.
+    const correctChoice = document.getElementById('choice3');// chỉ số của lựa chọn đúng tích nghiệm. hiện tại là choice3 do chưa trộn thứ tự.
+    resultButton.addEventListener('click', () => {
+        correctChoice.classList.add('correct');
+    });
+}
+
+// hết các dạng câu hỏi.
 let content = document.querySelector(".content");
 let question = document.querySelector(".question");
 let choicesElement = document.querySelector(".choices");
@@ -432,11 +680,21 @@ let resultButton = document.querySelector('#result');
 
 let restartButton = document.querySelector("#restart");
 restartButton.addEventListener("click", () => {
-    switch (Math.floor(Math.random()*2)) { // nhân 2 do mới có 2 câu hỏi. DÙNG FLOOR ĐỂ LÀM TRÒN XUỐNG
-        case 0:
+    switch (Math.floor(Math.random()*5)+1) { // nhân 5 cộng 1 ứng với 5 dạng câu hỏi. DÙNG FLOOR ĐỂ LÀM TRÒN XUỐNG
+        case 1:
             taoTracNghiem_HoiNghiem();
             break;
-        case 1:
-            taoTracNghiem_HoiTong();        
+        case 2:
+            taoTracNghiem_HoiTong();  
+            break;
+        case 3:
+            taoTracNghiem_SoNghiem();
+            break;
+        case 4:
+            taoTracNghiem_HoiTich();
+            break;
+        case 5:
+            taoTracNghiem_HoiTongBinhPhuong();
+            break;
     }
 });
