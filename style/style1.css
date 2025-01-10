@@ -30,3 +30,8 @@ li{
 span {
   font-style: italic;
 }
+
+footer {
+  font-size: small;
+  color: white;
+}
