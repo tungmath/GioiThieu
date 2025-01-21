@@ -27,7 +27,7 @@ function taoTracNghiem_HoiToaDoTrungDiem(){
     // lấy tên điểm ngẫu nhiên
     let tenDiem = [`A`,`B`,`C`,`D`,`F`,`E`,`G`,`H`,`I`,`J`,`K`,`L`,`M`,`N`,`O`,`P`,`Q`,`R`,`S`];
     let A = tenDiem[ Math.floor( Math.random()*tenDiem.length ) ];
-    tenDiem.splice(tenDiem.indexOf(A));
+    tenDiem.splice(tenDiem.indexOf(A),1);
     let B = tenDiem[ Math.floor( Math.random()*tenDiem.length ) ];
 
     content.innerHTML = `Trung điểm của đoạn thẳng ${katex.renderToString(`${A}${B}`)} có tọa độ là cặp số nào sau đây? Biết:`;
@@ -58,7 +58,7 @@ function taoTracNghiem_HoiToaDoTrungDiem(){
     for (let i=0;i<4; i++){
         choices.push( newChoices[ map[i] ] );
     }
-    console.log(map);
+
     // hết trộn.
 
     // hiện đáp án ra.
@@ -135,10 +135,11 @@ function taoTracNghiem_HoiToaDoTrongTam(){
     // lấy tên điểm ngẫu nhiên
     let tenDiem = [`A`,`B`,`C`,`D`,`F`,`E`,`G`,`H`,`I`,`J`,`K`,`L`,`M`,`N`,`O`,`P`,`Q`,`R`,`S`];
     let A = tenDiem[ Math.floor( Math.random()*tenDiem.length ) ];
-    tenDiem.splice(tenDiem.indexOf(A));
+    tenDiem.splice(tenDiem.indexOf(A),1);
     let B = tenDiem[ Math.floor( Math.random()*tenDiem.length ) ];
-    tenDiem.splice(tenDiem.indexOf(B));
+    tenDiem.splice(tenDiem.indexOf(B),1);
     let C = tenDiem[ Math.floor( Math.random()*tenDiem.length ) ];
+ 
 
     content.innerHTML = `Trọng tâm của tam giác ${katex.renderToString(`${A}${B}${C}`)} có tọa độ là cặp số nào sau đây? Biết:`;
     equation.innerHTML = katex.renderToString( `${toaDo3DiemTen(A,B,C,a,b,c)}` );
@@ -169,7 +170,7 @@ function taoTracNghiem_HoiToaDoTrongTam(){
     for (let i=0;i<4; i++){
         choices.push( newChoices[ map[i] ] );
     }
-    console.log(map);
+
     // hết trộn.
 
     // hiện đáp án ra.
