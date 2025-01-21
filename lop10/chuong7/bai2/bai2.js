@@ -58,9 +58,9 @@ function taoTracNghiem_BatPhuongTrinhBacHai2Nghiem(){
     }
 
     function ghiBatPhuongTrinhBacHai(A, B, C, dau){
-        let a = Math.floor(Math.random()*10);
-        let b = Math.floor(Math.random()*10);
-        let c = Math.floor(Math.random()*10);
+        let a = Math.floor(Math.random()*10)*randomSign();
+        let b = Math.floor(Math.random()*10)*randomSign();
+        let c = Math.floor(Math.random()*10)*randomSign();
         let d = A - a;
         let e = B - b;
         let f = C - c;
@@ -76,7 +76,7 @@ function taoTracNghiem_BatPhuongTrinhBacHai2Nghiem(){
             }
         }
         // ghi dấu
-        string +=`${dau}`;
+        string +=`${dau} `;
         // ghi vế phải
         if (d!=0){
             string +=trinomial(d,e,f);
@@ -214,7 +214,13 @@ function taoTracNghiem_TapXacDinhHamSoCoCan2Nghiem(){
     if (laPhanSo ===0){
         bieuThuc += `\\sqrt{ ${ trinomial( eq[0],eq[1],eq[2] ) } }`;
     }else{
-        bieuThuc += `\\dfrac{ ${ binomial( d,e ) } }{\\sqrt{ ${ trinomial( eq[0],eq[1],eq[2] ) } } }`;
+        bieuThuc += `\\dfrac{ `;
+        if (d!=0){
+            bieuThuc += `${binomial(d,e)}`;
+        }else{
+            bieuThuc += `${e}`;
+        }
+        bieuThuc += `}{ \\sqrt{ ${ trinomial( eq[0],eq[1],eq[2] ) } } }`;
     }
 
     // ghi hàm số bằng biểu thức đã tạo.
@@ -292,6 +298,124 @@ function taoTracNghiem_TapXacDinhHamSoCoCan2Nghiem(){
     });
 }
 
+
+// TẬP XÁC ĐỊNH HÀM SỐ CÓ CĂN 1 NGHIỆM.
+function taoTracNghiem_TapXacDinhHamSoCoCan1Nghiem(){
+    let eq=taoTamThucBacHai(1);// tạo tam thức bậc hai dưới dấu căn.
+    // tạo các biểu thức gây nhiễu
+    let a = Math.floor(Math.random()*10);
+    let b = Math.floor(Math.random()*30);
+    let c = Math.floor(Math.random()*50);
+    let d = Math.floor(Math.random()*30);
+    let e = Math.floor(Math.random()*30);
+    let laPhanSo = Math.floor(Math.random()*2); // 0 là không, 1 là dưới căn
+    let dauCuaCan = Math.floor(Math.random()*2); // 0 là + 1 là -
+    
+    content.innerHTML = `Tìm tập xác định của hàm số sau:`;
+
+    // tạo biểu thức cho hàm số
+    let bieuThuc = ``;
+    if (a!=0){
+        bieuThuc += trinomial(a,b,c);
+    }else{
+        if (b!=0){
+            bieuThuc += binomial(b,c);
+        }else{
+            bieuThuc += `${c}`;
+        }
+    }
+    if (dauCuaCan === 0){
+        bieuThuc += `+`;
+    }else{
+        bieuThuc += `-`;
+    }
+    if (laPhanSo ===0){
+        bieuThuc += `\\sqrt{ ${ trinomial( eq[0],eq[1],eq[2] ) } }`;
+    }else{
+        bieuThuc += `\\dfrac{ `;
+        if (d!=0){
+            bieuThuc += `${binomial(d,e)}`;
+        }else{
+            bieuThuc += `${e}`;
+        }
+        bieuThuc += `}{ \\sqrt{ ${ trinomial( eq[0],eq[1],eq[2] ) } } }`;
+    }
+
+    // ghi hàm số bằng biểu thức đã tạo.
+    equation.innerHTML = katex.renderToString(`f(x) = ${bieuThuc}`);
+
+    //tạo các lựa chọn. CÓ 1 NGHIỆM NÊN x1 = x2.
+    let choices = [];
+    choices.push(katex.renderToString( `\\mathbb{R}\\setminus\\left\\{ ${ghiPhanSo(eq[3])} \\right\\}` ));   // 0. phân số, eq[0] dương.
+    choices.push(katex.renderToString( ` \\varnothing` ));   // 1. phân số, eq[0] âm
+    choices.push(katex.renderToString( `\\mathbb{R}` ));   // 2. không phân số, eq[0] dương
+    choices.push(katex.renderToString( ` \\left\\{ ${ghiPhanSo(eq[3])} \\right\\} ` ));   // 3. không phân số, eq[0] âm.
+    // hết tạo lựa chọn.
+
+    // trộn
+    map =     tronThuTu([0,1,2,3]);
+    let newChoices = choices;
+    choices =[];
+    for (let i=0;i<4; i++){
+        choices.push( newChoices[ map[i] ] );
+    }
+    // hết trộn.
+
+    // hiện đáp án ra.
+    choicesElement.innerHTML = '';
+    let i=0;
+
+    for (const choice of choices){
+        choicesElement.innerHTML += `<button class="choice" id="choice${i}"><li>${choice}</li></button><br>`;
+        i++;
+    }
+    // hết hiện đáp án.
+
+    // người dùng chọn đáp án nào thì đáp án đó xanh lá, các đáp án khác về bình thường.
+    let userChoice=[];
+    let userChoiceIndex=0; // biến lưu thứ tự câu người dùng chọn
+    for (let a=0 ; a<4 ; a++){
+        userChoice.push(document.getElementById('choice'+a));
+        userChoice[a].addEventListener('click', () => {
+            userChoice[a].classList.add('userchoice');
+            userChoiceIndex=a+1; //lấy thứ tự câu người dùng chọn
+            for (let i=0 ; i<4 ; i++){
+                if (i!=a){
+                    userChoice[i].classList.remove('userchoice');
+                }
+            }
+        });
+    }
+
+    // tính chỉ số cho đáp án đúng.
+    let cauDung = 0;
+    if ( laPhanSo===0){
+        if (eq[0] >0){
+            cauDung = 2;
+        }else{
+            cauDung = 3;
+        }
+    }else{
+        if (eq[0]<0){
+            cauDung = 1;
+        }
+    }
+    // lấy chỉ số câu đúng sau khi trộn.
+    cauDung = map.indexOf(cauDung);
+    // hết lấy chỉ số đáp án đúng.
+
+    // gán câu đúng.
+    const correctChoice = document.getElementById(`choice${cauDung}`); // chỉ số của lựa chọn đúng tích nghiệm.
+    resultButton.addEventListener('click', () => {
+        correctChoice.classList.remove('userchoice');
+        correctChoice.classList.add('correct');
+        if (userChoiceIndex-1!=cauDung && userChoiceIndex!=''){
+                userChoice[userChoiceIndex-1].classList.add('wrong');
+        }
+    });
+}
+
+
 // hết các câu hỏi
 let content = document.querySelector(".content");
 let equation = document.querySelector(".equation");
@@ -301,12 +425,15 @@ let resultButton = document.querySelector('#result');
 let restartButton = document.querySelector("#restart");
 
 restartButton.addEventListener("click", () => {
-    switch (Math.floor(Math.random()*2)+1) { // Tự động chọn dạng câu hỏi: DÙNG FLOOR ĐỂ LÀM TRÒN XUỐNG
+    switch (Math.floor(Math.random()*3)+1) { // Tự động chọn dạng câu hỏi: DÙNG FLOOR ĐỂ LÀM TRÒN XUỐNG
         case 1:
             taoTracNghiem_BatPhuongTrinhBacHai2Nghiem();
             break;
         case 2:
             taoTracNghiem_TapXacDinhHamSoCoCan2Nghiem();
+            break;
+        case 3:
+            taoTracNghiem_TapXacDinhHamSoCoCan1Nghiem();
             break;
     }
 });

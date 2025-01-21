@@ -58,6 +58,27 @@ class Fraction {
     }
 }
 
+function congPhanSo(a,b){
+    return new Fraction(a.numer*b.denom + a.denom*b.numer , a.denom*b.denom);
+}
+
+function truPhanSo(a,b){
+    return new Fraction(a.numer*b.denom - a.denom*b.numer , a.denom*b.denom);
+}
+
+function nhanPhanSo(a,b){
+    return new Fraction(a.numer*b.numer , a.denom*b.denom);
+}
+
+function chiaPhanSo(a,b){
+    if (b.numer !=0){
+        return new Fraction(a.numer*b.denom , a.denom*b.numer);
+    }else{
+        return `Không thể chia cho 0!`;
+    }
+}
+
+
 function ghiPhanSo(phanSo){// hàm ghi phân số
     if (phanSo.denom===1){
         string=`${phanSo.numer}`;
