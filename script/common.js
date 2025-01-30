@@ -182,3 +182,84 @@ function binomial(a,b){
 // hết trường hợp đặc biệt
     return string;
 }
+
+function ghiCanBacHai(a){
+    let string =`0`;
+    let uocCanNguyen =1;
+    // tìm ước là số chính phương
+    if (a>=0){
+        for (let i=1; i<=Math.sqrt(a);i++){ // quét hết các ước để tìm ước chính phương.
+            if (a%(i*i)===0){
+                uocCanNguyen=i;
+            }
+        }
+    }
+    // tìm được căn của ước chính phương thì ghi ra dạng căn bậc hai.
+    if (a===1){
+        string =`1`;
+    }else{
+        if (a>1){
+            if ((a/uocCanNguyen)/uocCanNguyen===1){ // a chính phương
+                string = `${uocCanNguyen}`;
+            }else{ // a không chính phương
+                if (uocCanNguyen===1){ // và không có ước chính phương
+                    string = `\\sqrt{${a}}`;
+                }else{ // nhưng có ước chính phương
+                    string = `${uocCanNguyen}\\sqrt{${(a/uocCanNguyen)/uocCanNguyen}}`;
+                }
+            }
+        }
+    }
+    return string;
+}
+
+function hienTracNghiem4LuaChon(dung,sai1,sai2,sai3){
+    // trộn
+    map = tronThuTu([0,1,2,3]);
+    let newChoices = [dung,sai1,sai2,sai3];
+    choices =[];
+    for (let i=0;i<4; i++){
+        choices.push( newChoices[ map[i] ] );
+    }
+    // hết trộn.
+
+    // hiện đáp án ra.
+    choicesElement.innerHTML = '';
+    let i=0;
+
+    for (const choice of choices){
+        choicesElement.innerHTML += `<button class="choice" id="choice${i}"><li>${choice}</li></button><br>`;
+        i++;
+    }
+    // hết hiện đáp án.
+
+    // người dùng chọn đáp án nào thì đáp án đó xanh lá, các đáp án khác về bình thường.
+    let userChoice=[];
+    let userChoiceIndex=0; // biến lưu thứ tự câu người dùng chọn
+    for (let a=0 ; a<4 ; a++){
+        userChoice.push(document.getElementById('choice'+a));
+        userChoice[a].addEventListener('click', () => {
+            userChoice[a].classList.add('userchoice');
+            userChoiceIndex=a+1; //lấy thứ tự câu người dùng chọn
+            for (let i=0 ; i<4 ; i++){
+                if (i!=a){
+                    userChoice[i].classList.remove('userchoice');
+                }
+            }
+        });
+    }
+
+    // lấy chỉ số câu đúng sau khi trộn.
+    cauDung = map.indexOf(0); // câu đúng luôn ở đầu tiên.
+    // hết lấy chỉ số đáp án đúng.
+
+    // gán câu đúng.
+    const correctChoice = document.getElementById(`choice${cauDung}`); // chỉ số của lựa chọn đúng tích nghiệm.
+    resultButton.addEventListener('click', () => {
+        correctChoice.classList.remove('userchoice');
+        correctChoice.classList.add('correct');
+        if (userChoiceIndex-1!=cauDung && userChoiceIndex!=''){
+                userChoice[userChoiceIndex-1].classList.add('wrong');
+        }
+    });
+}
