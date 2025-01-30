@@ -43,72 +43,19 @@ function taoTracNghiem_HoiToaDoTrungDiem(){
     equation.innerHTML = katex.renderToString( `${toaDo2DiemTen(A,B,a,b)}` );
 
     //tạo các lựa chọn.
-    let choices = [];
-
     let hai = new Fraction(2,1);
 
-    let dung = `${ ghiPhanSo( chiaPhanSo( congPhanSo(a[0],b[0]), hai ) ) }, ${ ghiPhanSo( chiaPhanSo( congPhanSo(a[1],b[1]), hai ) ) }`;
-    choices.push(katex.renderToString( `\\left( ${dung} \\right)` )); //
+    let dung = `${katex.renderToString( `\\left( ${ ghiPhanSo( chiaPhanSo( congPhanSo(a[0],b[0]), hai ) ) }, ${ ghiPhanSo( chiaPhanSo( congPhanSo(a[1],b[1]), hai ) ) } \\right)`)}`; //
 
-    let sai = `${ ghiPhanSo( chiaPhanSo( truPhanSo(a[0],b[0]), hai ) ) }, ${ ghiPhanSo( chiaPhanSo( truPhanSo(a[1],b[1]), hai ) ) }`;
-    choices.push(katex.renderToString( `\\left( ${sai} \\right)` )); //
+    let sai1 = `${katex.renderToString( `\\left( ${ ghiPhanSo( chiaPhanSo( truPhanSo(a[0],b[0]), hai ) ) }, ${ ghiPhanSo( chiaPhanSo( truPhanSo(a[1],b[1]), hai ) ) } \\right)` )}`; //
     
-    sai = `${ ghiPhanSo( congPhanSo(a[0],b[0]) ) }, ${ ghiPhanSo( congPhanSo(a[1],b[1]) ) }`;
-    choices.push(katex.renderToString( `\\left( ${sai} \\right)` )); //
+    let sai2 = `${katex.renderToString( `\\left( ${ ghiPhanSo( congPhanSo(a[0],b[0]) ) }, ${ ghiPhanSo( congPhanSo(a[1],b[1]) ) } \\right)` )}`; //
     
-    sai = `${ ghiPhanSo( truPhanSo(a[0],b[0]) ) }, ${ ghiPhanSo( truPhanSo(a[1],b[1]) ) }`;
-    choices.push(katex.renderToString( `\\left( ${sai} \\right)` )); //
+    let sai3 = `${katex.renderToString( `\\left( ${ ghiPhanSo( truPhanSo(a[0],b[0]) ) }, ${ ghiPhanSo( truPhanSo(a[1],b[1]) ) } \\right)` )}`; //
     // hết tạo lựa chọn.
 
-    // trộn
-    map = tronThuTu([0,1,2,3]);
-    let newChoices = choices;
-    choices =[];
-    for (let i=0;i<4; i++){
-        choices.push( newChoices[ map[i] ] );
-    }
-
-    // hết trộn.
-
-    // hiện đáp án ra.
-    choicesElement.innerHTML = '';
-    let i=0;
-
-    for (const choice of choices){
-        choicesElement.innerHTML += `<button class="choice" id="choice${i}"><li>${choice}</li></button><br>`;
-        i++;
-    }
-    // hết hiện đáp án.
-
-    // người dùng chọn đáp án nào thì đáp án đó xanh lá, các đáp án khác về bình thường.
-    let userChoice=[];
-    let userChoiceIndex=0; // biến lưu thứ tự câu người dùng chọn
-    for (let a=0 ; a<4 ; a++){
-        userChoice.push(document.getElementById('choice'+a));
-        userChoice[a].addEventListener('click', () => {
-            userChoice[a].classList.add('userchoice');
-            userChoiceIndex=a+1; //lấy thứ tự câu người dùng chọn
-            for (let i=0 ; i<4 ; i++){
-                if (i!=a){
-                    userChoice[i].classList.remove('userchoice');
-                }
-            }
-        });
-    }
-
-    // lấy chỉ số câu đúng sau khi trộn.
-    cauDung = map.indexOf(0);
-    // hết lấy chỉ số đáp án đúng.
-
-    // gán câu đúng.
-    const correctChoice = document.getElementById(`choice${cauDung}`); // chỉ số của lựa chọn đúng tích nghiệm.
-    resultButton.addEventListener('click', () => {
-        correctChoice.classList.remove('userchoice');
-        correctChoice.classList.add('correct');
-        if (userChoiceIndex-1!=cauDung && userChoiceIndex!=''){
-                userChoice[userChoiceIndex-1].classList.add('wrong');
-        }
-    });
+    // hiện các đáp án và hiệu ứng chọn.
+    hienTracNghiem4LuaChon(dung,sai1,sai2,sai3);
 }
 
 // 2. HỎI TRỌNG TÂM CỦA TAM GIÁC.
@@ -154,76 +101,23 @@ function taoTracNghiem_HoiToaDoTrongTam(){
     equation.innerHTML = katex.renderToString( `${toaDo3DiemTen(A,B,C,a,b,c)}` );
 
     //tạo các lựa chọn.
-    let choices = [];
-
     let hai = new Fraction(2,1);
     let ba = new Fraction(3,1);
 
-    let dung = `${ ghiPhanSo( chiaPhanSo( congPhanSo(congPhanSo(a[0],b[0]),c[0]), ba ) ) }, ${ ghiPhanSo( chiaPhanSo( congPhanSo(congPhanSo(a[1],b[1]),c[1]), ba ) ) }`;
-    choices.push(katex.renderToString( `\\left( ${dung} \\right)` )); //
+    let dung = `${katex.renderToString( `\\left( ${ ghiPhanSo( chiaPhanSo( congPhanSo(congPhanSo(a[0],b[0]),c[0]), ba ) ) }, ${ ghiPhanSo( chiaPhanSo( congPhanSo(congPhanSo(a[1],b[1]),c[1]), ba ) ) } \\right)` )}`; //
 
-    let sai = `${ ghiPhanSo( chiaPhanSo( congPhanSo(congPhanSo(a[0],b[0]),c[0]), hai ) ) }, ${ ghiPhanSo( chiaPhanSo( congPhanSo(congPhanSo(a[1],b[1]),c[1]), hai ) ) }`;
-    choices.push(katex.renderToString( `\\left( ${sai} \\right)` )); //
+    let sai1 = `${katex.renderToString( `\\left( ${ ghiPhanSo( chiaPhanSo( congPhanSo(congPhanSo(a[0],b[0]),c[0]), hai ) ) }, ${ ghiPhanSo( chiaPhanSo( congPhanSo(congPhanSo(a[1],b[1]),c[1]), hai ) ) } \\right)` )}`; //
     
-    sai = `${ ghiPhanSo( congPhanSo(congPhanSo(a[0],b[0]),c[0]) ) }, ${ ghiPhanSo( congPhanSo(congPhanSo(a[1],b[1]),c[1]) ) }`;
-    choices.push(katex.renderToString( `\\left( ${sai} \\right)` )); //
+    let sai2 = `${katex.renderToString( `\\left( ${ ghiPhanSo( congPhanSo(congPhanSo(a[0],b[0]),c[0]) ) }, ${ ghiPhanSo( congPhanSo(congPhanSo(a[1],b[1]),c[1]) ) } \\right)` )}`; //
     
-    sai = `${ ghiPhanSo( chiaPhanSo( congPhanSo(a[0],b[0]), hai ) ) }, ${ ghiPhanSo( chiaPhanSo( congPhanSo(a[1],b[1]), hai ) ) }`;
-    choices.push(katex.renderToString( `\\left( ${sai} \\right)` )); //
+    let sai3 = `${katex.renderToString( `\\left( ${ ghiPhanSo( chiaPhanSo( congPhanSo(a[0],b[0]), hai ) ) }, ${ ghiPhanSo( chiaPhanSo( congPhanSo(a[1],b[1]), hai ) ) } \\right)` )}`; //
     // hết tạo lựa chọn.
 
-    // trộn
-    map =     tronThuTu([0,1,2,3]);
-    let newChoices = choices;
-    choices =[];
-    for (let i=0;i<4; i++){
-        choices.push( newChoices[ map[i] ] );
-    }
-    // hết trộn.
-
-    // hiện đáp án ra.
-    choicesElement.innerHTML = '';
-    let i=0;
-
-    for (const choice of choices){
-        choicesElement.innerHTML += `<button class="choice" id="choice${i}"><li>${choice}</li></button><br>`;
-        i++;
-    }
-    // hết hiện đáp án.
-
-    // người dùng chọn đáp án nào thì đáp án đó xanh lá, các đáp án khác về bình thường.
-    let userChoice=[];
-    let userChoiceIndex=0; // biến lưu thứ tự câu người dùng chọn
-    for (let a=0 ; a<4 ; a++){
-        userChoice.push(document.getElementById('choice'+a));
-        userChoice[a].addEventListener('click', () => {
-            userChoice[a].classList.add('userchoice');
-            userChoiceIndex=a+1; //lấy thứ tự câu người dùng chọn
-            for (let i=0 ; i<4 ; i++){
-                if (i!=a){
-                    userChoice[i].classList.remove('userchoice');
-                }
-            }
-        });
-    }
-
-    // lấy chỉ số câu đúng sau khi trộn.
-    cauDung = map.indexOf(0);
-    // hết lấy chỉ số đáp án đúng.
-
-    // gán câu đúng.
-    const correctChoice = document.getElementById(`choice${cauDung}`); // chỉ số của lựa chọn đúng tích nghiệm.
-    resultButton.addEventListener('click', () => {
-        correctChoice.classList.remove('userchoice');
-        correctChoice.classList.add('correct');
-        if (userChoiceIndex-1!=cauDung && userChoiceIndex!=''){
-                userChoice[userChoiceIndex-1].classList.add('wrong');
-        }
-    });
+    // hiện các đáp án và hiệu ứng chọn.
+    hienTracNghiem4LuaChon(dung,sai1,sai2,sai3);
 }
 
 // 3. HỎI TỌA ĐỘ VEC TƠ BIẾT 2 ĐẦU MÚT
-
 function taoTracNghiem_HoiToaDoVectorBiet2Diem(){
     // tạo 2 cặp tọa độ.
     let a_x = new Fraction( (Math.floor(Math.random()*30))*randomSign(), 1);
@@ -254,76 +148,23 @@ function taoTracNghiem_HoiToaDoVectorBiet2Diem(){
     equation.innerHTML = katex.renderToString( `${toaDo2DiemTen(A,B,a,b)}` );
 
     //tạo các lựa chọn.
-    let choices = [];
-
     let hai = new Fraction(2,1);
 
-    let dung = `${ ghiPhanSo( truPhanSo(b[0],a[0]) ) }, ${ ghiPhanSo( truPhanSo(b[1],a[1]) ) }`;
-    choices.push(katex.renderToString( `\\left( ${dung} \\right)` )); 
+    let dung = `${katex.renderToString( `\\left( ${ ghiPhanSo( truPhanSo(b[0],a[0]) ) }, ${ ghiPhanSo( truPhanSo(b[1],a[1]) ) } \\right)` )}`; 
 
     // sai do tổng chia 2 là trung điểm
-    let sai = `${ ghiPhanSo( chiaPhanSo( congPhanSo(a[0],b[0]), hai ) ) }, ${ ghiPhanSo( chiaPhanSo( congPhanSo(a[1],b[1]), hai ) ) }`;
-    choices.push(katex.renderToString( `\\left( ${sai} \\right)` )); //
+    let sai1 = `${katex.renderToString( `\\left( ${ ghiPhanSo( chiaPhanSo( congPhanSo(a[0],b[0]), hai ) ) }, ${ ghiPhanSo( chiaPhanSo( congPhanSo(a[1],b[1]), hai ) ) } \\right)` )}`; //
 
     // sai do lấy đầu trừ cuối
-    sai = `${ ghiPhanSo( truPhanSo(a[0],b[0]) ) }, ${ ghiPhanSo( truPhanSo(a[1],b[1]) ) }`;
-    choices.push(katex.renderToString( `\\left( ${sai} \\right)` )); //
+    let sai2 = `${katex.renderToString( `\\left( ${ ghiPhanSo( truPhanSo(a[0],b[0]) ) }, ${ ghiPhanSo( truPhanSo(a[1],b[1]) ) } \\right)` )}`; //
     
     // sai do lấy tổng
-    sai = `${ ghiPhanSo( congPhanSo(a[0],b[0]) ) }, ${ ghiPhanSo( congPhanSo(a[1],b[1]) ) }`;
-    choices.push(katex.renderToString( `\\left( ${sai} \\right)` )); //
-    
+    let sai3 = `${katex.renderToString( `\\left( ${ ghiPhanSo( congPhanSo(a[0],b[0]) ) }, ${ ghiPhanSo( congPhanSo(a[1],b[1]) ) } \\right)` )}`; //
     
     // hết tạo lựa chọn.
 
-    // trộn
-    map = tronThuTu([0,1,2,3]);
-    let newChoices = choices;
-    choices =[];
-    for (let i=0;i<4; i++){
-        choices.push( newChoices[ map[i] ] );
-    }
-    // hết trộn.
-
-    // hiện đáp án ra.
-    choicesElement.innerHTML = '';
-    let i=0;
-
-    for (const choice of choices){
-        choicesElement.innerHTML += `<button class="choice" id="choice${i}"><li>${choice}</li></button><br>`;
-        i++;
-    }
-    // hết hiện đáp án.
-
-    // người dùng chọn đáp án nào thì đáp án đó xanh lá, các đáp án khác về bình thường.
-    let userChoice=[];
-    let userChoiceIndex=0; // biến lưu thứ tự câu người dùng chọn
-    for (let a=0 ; a<4 ; a++){
-        userChoice.push(document.getElementById('choice'+a));
-        userChoice[a].addEventListener('click', () => {
-            userChoice[a].classList.add('userchoice');
-            userChoiceIndex=a+1; //lấy thứ tự câu người dùng chọn
-            for (let i=0 ; i<4 ; i++){
-                if (i!=a){
-                    userChoice[i].classList.remove('userchoice');
-                }
-            }
-        });
-    }
-
-    // lấy chỉ số câu đúng sau khi trộn.
-    cauDung = map.indexOf(0);
-    // hết lấy chỉ số đáp án đúng.
-
-    // gán câu đúng.
-    const correctChoice = document.getElementById(`choice${cauDung}`); // chỉ số của lựa chọn đúng tích nghiệm.
-    resultButton.addEventListener('click', () => {
-        correctChoice.classList.remove('userchoice');
-        correctChoice.classList.add('correct');
-        if (userChoiceIndex-1!=cauDung && userChoiceIndex!=''){
-                userChoice[userChoiceIndex-1].classList.add('wrong');
-        }
-    });
+    // hiện các đáp án và hiệu ứng chọn.
+    hienTracNghiem4LuaChon(dung,sai1,sai2,sai3);
 }
 
 // 4. TỌA ĐỘ ĐIỂM BIẾT TỌA ĐỘ VEC TƠ VÀ 1 ĐẦU MÚT.
@@ -369,76 +210,23 @@ function taoTracNghiem_HoiToaDoDiemBietVectoVa1DauMut(){
 
 
     // tạo các lựa chọn.
-    let choices = [];
-
     let dung = ``;
     if (biet===1){ // biết 1 hỏi 0, và ngược lại.
-        dung =`${ghiPhanSo(a[0])}, ${ghiPhanSo(a[1])}`;
+        dung = `${katex.renderToString(`\\left( ${ghiPhanSo(a[0])}, ${ghiPhanSo(a[1])} \\right)`)}`;
     }else{
-        dung =`${ghiPhanSo(b[0])}, ${ghiPhanSo(b[1])}`;
+        dung = `${katex.renderToString(`\\left( ${ghiPhanSo(b[0])}, ${ghiPhanSo(b[1])} \\right)`)}`;
     }
-    choices.push(katex.renderToString( `\\left( ${dung} \\right)` )); //
 
     let hai = new Fraction(2,1);
-    let sai = `${ ghiPhanSo( chiaPhanSo( congPhanSo(b[0],a[0]), hai ) ) }, ${ ghiPhanSo( chiaPhanSo( congPhanSo(b[1],a[1]), hai ) ) }`;
-    choices.push(katex.renderToString( `\\left( ${sai} \\right)` )); //
+    let sai1 = `${katex.renderToString( `\\left( ${ ghiPhanSo( chiaPhanSo( congPhanSo(b[0],a[0]), hai ) ) }, ${ ghiPhanSo( chiaPhanSo( congPhanSo(b[1],a[1]), hai ) ) } \\right)` )}`; //
     
-    sai = `${ ghiPhanSo( congPhanSo(nhanPhanSo(b[0],hai),a[0]) ) }, ${ ghiPhanSo( congPhanSo(nhanPhanSo(b[1],hai),a[1]) ) }`;
-    choices.push(katex.renderToString( `\\left( ${sai} \\right)` )); //
+    let sai2 = `${katex.renderToString( `\\left( ${ ghiPhanSo( congPhanSo(nhanPhanSo(b[0],hai),a[0]) ) }, ${ ghiPhanSo( congPhanSo(nhanPhanSo(b[1],hai),a[1]) ) } \\right)` )}`; //
     
-    sai = `${ ghiPhanSo( truPhanSo(b[0],nhanPhanSo(a[0],hai)) ) }, ${ ghiPhanSo( truPhanSo(b[1],nhanPhanSo(a[1],hai)) ) }`;
-    choices.push(katex.renderToString( `\\left( ${sai} \\right)` )); //
+    let sai3 = `${katex.renderToString( `\\left( ${ ghiPhanSo( truPhanSo(b[0],nhanPhanSo(a[0],hai)) ) }, ${ ghiPhanSo( truPhanSo(b[1],nhanPhanSo(a[1],hai)) ) } \\right)` )}`; //
     // hết tạo lựa chọn.
 
-    // trộn
-    map = tronThuTu([0,1,2,3]);
-    let newChoices = choices;
-    choices =[];
-    for (let i=0;i<4; i++){
-        choices.push( newChoices[ map[i] ] );
-    }
-
-    // hết trộn.
-
-    // hiện đáp án ra.
-    choicesElement.innerHTML = '';
-    let i=0;
-
-    for (const choice of choices){
-        choicesElement.innerHTML += `<button class="choice" id="choice${i}"><li>${choice}</li></button><br>`;
-        i++;
-    }
-    // hết hiện đáp án.
-
-    // người dùng chọn đáp án nào thì đáp án đó xanh lá, các đáp án khác về bình thường.
-    let userChoice=[];
-    let userChoiceIndex=0; // biến lưu thứ tự câu người dùng chọn
-    for (let a=0 ; a<4 ; a++){
-        userChoice.push(document.getElementById('choice'+a));
-        userChoice[a].addEventListener('click', () => {
-            userChoice[a].classList.add('userchoice');
-            userChoiceIndex=a+1; //lấy thứ tự câu người dùng chọn
-            for (let i=0 ; i<4 ; i++){
-                if (i!=a){
-                    userChoice[i].classList.remove('userchoice');
-                }
-            }
-        });
-    }
-
-    // lấy chỉ số câu đúng sau khi trộn.
-    cauDung = map.indexOf(0);
-    // hết lấy chỉ số đáp án đúng.
-
-    // gán câu đúng.
-    const correctChoice = document.getElementById(`choice${cauDung}`); // chỉ số của lựa chọn đúng tích nghiệm.
-    resultButton.addEventListener('click', () => {
-        correctChoice.classList.remove('userchoice');
-        correctChoice.classList.add('correct');
-        if (userChoiceIndex-1!=cauDung && userChoiceIndex!=''){
-                userChoice[userChoiceIndex-1].classList.add('wrong');
-        }
-    });
+    // hiện các đáp án và hiệu ứng chọn.
+    hienTracNghiem4LuaChon(dung,sai1,sai2,sai3);   
 }
 
 // 5. TỌA ĐỘ ĐIỂM BIẾT TỌA ĐỘ 1 ĐẦU MÚT VÀ TRUNG ĐIỂM.
@@ -485,88 +273,51 @@ function taoTracNghiem_HoiToaDoDiemBietTrungDiemVa1DauMut(){
     equation.innerHTML = katex.renderToString( `${toaDoTrungDiemVa1DauMut(A,B,M,a,b,mid,biet)}.` );
 
     // tạo các lựa chọn.
-    let choices = [];
-
     let dung = ``;
-    let sai = ``;
+    let sai1 = ``, sai2 =``, sai3 = ``;
     if (biet===1){ // biết 1 hỏi 0, và ngược lại.
-        dung =`${ghiPhanSo(a[0])}, ${ghiPhanSo(a[1])}`;
-        choices.push(katex.renderToString( `\\left( ${dung} \\right)` ));
+        dung =`${katex.renderToString( `\\left( ${ghiPhanSo(a[0])}, ${ghiPhanSo(a[1])} \\right)` )}`;
 
-        sai = `${ ghiPhanSo( chiaPhanSo( truPhanSo(mid[0],b[0]), hai ) ) }, ${ ghiPhanSo( chiaPhanSo( truPhanSo(mid[1],b[1]), hai ) ) }`;
-        choices.push(katex.renderToString( `\\left( ${sai} \\right)` )); //
+        sai1 = `${katex.renderToString( `\\left( ${ ghiPhanSo( chiaPhanSo( truPhanSo(mid[0],b[0]), hai ) ) }, ${ ghiPhanSo( chiaPhanSo( truPhanSo(mid[1],b[1]), hai ) ) } \\right)` )}`; //
         
-        sai = `${ ghiPhanSo( chiaPhanSo( congPhanSo(mid[0],b[0]), hai ) ) }, ${ ghiPhanSo( chiaPhanSo( congPhanSo(mid[1],b[1]), hai ) ) }`;
-        choices.push(katex.renderToString( `\\left( ${sai} \\right)` )); //
+        sai2= `${katex.renderToString( `\\left( ${ ghiPhanSo( chiaPhanSo( congPhanSo(mid[0],b[0]), hai ) ) }, ${ ghiPhanSo( chiaPhanSo( congPhanSo(mid[1],b[1]), hai ) ) } \\right)` )}`; //
         
-        sai = `${ ghiPhanSo(congPhanSo(mid[0],b[0])) }, ${ ghiPhanSo( congPhanSo(mid[0],b[0])) }`;
-        choices.push(katex.renderToString( `\\left( ${sai} \\right)` )); //
+        sai3 = `${katex.renderToString( `\\left( ${ ghiPhanSo(congPhanSo(mid[0],b[0])) }, ${ ghiPhanSo( congPhanSo(mid[0],b[0])) } \\right)` )}`; //
     }else{
-        dung =`${ghiPhanSo(b[0])}, ${ghiPhanSo(b[1])}`;
-        choices.push(katex.renderToString( `\\left( ${dung} \\right)` )); //
+        dung =`${katex.renderToString( `\\left( ${ghiPhanSo(b[0])}, ${ghiPhanSo(b[1])} \\right)` )}`; //
 
-        sai = `${ ghiPhanSo( chiaPhanSo( truPhanSo(mid[0],a[0]), hai ) ) }, ${ ghiPhanSo( chiaPhanSo( truPhanSo(mid[1],a[1]), hai ) ) }`;
-        choices.push(katex.renderToString( `\\left( ${sai} \\right)` )); //
+        sai1 = `${katex.renderToString( `\\left( ${ ghiPhanSo( chiaPhanSo( truPhanSo(mid[0],a[0]), hai ) ) }, ${ ghiPhanSo( chiaPhanSo( truPhanSo(mid[1],a[1]), hai ) ) } \\right)` )}`; //
         
-        sai = `${ ghiPhanSo( chiaPhanSo( congPhanSo(mid[0],a[0]), hai ) ) }, ${ ghiPhanSo( chiaPhanSo( congPhanSo(mid[1],a[1]), hai ) ) }`;
-        choices.push(katex.renderToString( `\\left( ${sai} \\right)` )); //
+        sai2 = `${katex.renderToString( `\\left( ${ ghiPhanSo( chiaPhanSo( congPhanSo(mid[0],a[0]), hai ) ) }, ${ ghiPhanSo( chiaPhanSo( congPhanSo(mid[1],a[1]), hai ) ) } \\right)` )}`; //
         
-        sai = `${ ghiPhanSo(congPhanSo(mid[0],a[0])) }, ${ ghiPhanSo( congPhanSo(mid[0],a[0])) }`;
-        choices.push(katex.renderToString( `\\left( ${sai} \\right)` )); //
+        sai3 = `${katex.renderToString( `\\left( ${ ghiPhanSo(congPhanSo(mid[0],a[0])) }, ${ ghiPhanSo( congPhanSo(mid[0],a[0])) } \\right)` )}`; //
     }    
     // hết tạo lựa chọn.
 
-    // trộn
-    map = tronThuTu([0,1,2,3]);
-    let newChoices = choices;
-    choices =[];
-    for (let i=0;i<4; i++){
-        choices.push( newChoices[ map[i] ] );
-    }
-
-    // hết trộn.
-
-    // hiện đáp án ra.
-    choicesElement.innerHTML = '';
-    let i=0;
-
-    for (const choice of choices){
-        choicesElement.innerHTML += `<button class="choice" id="choice${i}"><li>${choice}</li></button><br>`;
-        i++;
-    }
-    // hết hiện đáp án.
-
-    // người dùng chọn đáp án nào thì đáp án đó xanh lá, các đáp án khác về bình thường.
-    let userChoice=[];
-    let userChoiceIndex=0; // biến lưu thứ tự câu người dùng chọn
-    for (let a=0 ; a<4 ; a++){
-        userChoice.push(document.getElementById('choice'+a));
-        userChoice[a].addEventListener('click', () => {
-            userChoice[a].classList.add('userchoice');
-            userChoiceIndex=a+1; //lấy thứ tự câu người dùng chọn
-            for (let i=0 ; i<4 ; i++){
-                if (i!=a){
-                    userChoice[i].classList.remove('userchoice');
-                }
-            }
-        });
-    }
-
-    // lấy chỉ số câu đúng sau khi trộn.
-    cauDung = map.indexOf(0);
-    // hết lấy chỉ số đáp án đúng.
-
-    // gán câu đúng.
-    const correctChoice = document.getElementById(`choice${cauDung}`); // chỉ số của lựa chọn đúng tích nghiệm.
-    resultButton.addEventListener('click', () => {
-        correctChoice.classList.remove('userchoice');
-        correctChoice.classList.add('correct');
-        if (userChoiceIndex-1!=cauDung && userChoiceIndex!=''){
-                userChoice[userChoiceIndex-1].classList.add('wrong');
-        }
-    });
+    // hiện các đáp án và hiệu ứng chọn.
+    hienTracNghiem4LuaChon(dung,sai1,sai2,sai3);
 }
 
+// 6. ĐỘ DÀI VEC TƠ.
+
+function taoTracNghiem_HoiDoDaiVecToBietToaDo(){
+    let x = Math.round(Math.random()*20)*randomSign();
+    let y = Math.round(Math.random()*20+1)*randomSign();
+    let doDaiBinhPhuong = x*x+y*y;
+
+    content.innerHTML = `Độ dài của vec tơ cho dưới đây bằng bao nhiêu?`;
+    equation.innerHTML = `${katex.renderToString(`\\vec{a}=(${x};${y})`)}`;
+    
+    // tạo các lựa chọn.
+    let dung = `${katex.renderToString(`${ghiCanBacHai(doDaiBinhPhuong)}`)}`;
+    let sai1 = `${katex.renderToString(`${ghiCanBacHai(Math.abs(x*x-y*y))}`)}`;
+    let sai2 = `${katex.renderToString(`${x*x+y*y}`)}`;
+    let sai3 = `${katex.renderToString(`${ghiCanBacHai(Math.abs(x+y))}`)}`;
+    // hết các lựa chọn.
+
+    // hiện các đáp án và hiệu ứng chọn.
+    hienTracNghiem4LuaChon(dung,sai1,sai2,sai3);
+}
 let content = document.querySelector(".content");
 let equation = document.querySelector(".equation");
 let choicesElement = document.querySelector(".choices");
@@ -575,7 +326,7 @@ let resultButton = document.querySelector('#result');
 let restartButton = document.querySelector("#restart");
 
 restartButton.addEventListener("click", () => {
-    switch (Math.floor(Math.random()*5)+1) { // Tự động chọn dạng câu hỏi: DÙNG FLOOR ĐỂ LÀM TRÒN XUỐNG
+    switch (Math.floor(Math.random()*6)+1) { // Tự động chọn dạng câu hỏi: DÙNG FLOOR ĐỂ LÀM TRÒN XUỐNG
         case 1:
             taoTracNghiem_HoiToaDoTrungDiem();
             break;
@@ -590,6 +341,9 @@ restartButton.addEventListener("click", () => {
             break;
         case 5:
             taoTracNghiem_HoiToaDoDiemBietTrungDiemVa1DauMut();
+            break;
+        case 6:
+            taoTracNghiem_HoiDoDaiVecToBietToaDo();
             break;
     }
 });
