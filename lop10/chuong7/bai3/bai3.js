@@ -29,11 +29,12 @@ function taoPhuongTrinh_CanBangCan() {
     let a=0, b=0, c=0, d=0, e=0, f=0;
     let x1= new Fraction(1,1), x2 = new Fraction(1,1);
     let zeroindex=0;
+    //let songhiem=Math.round(Math.random()*2);// số nghiệm cần có 0-2.
     while (nice!=1) {
         a=(Math.round(Math.random()*10)+1)*randomSign();
         b=(Math.round(Math.random()*40))*randomSign();
         c=(Math.round(Math.random()*80))*randomSign();
-        d=(Math.round(Math.random()*10)+1)*randomSign();
+        d=(Math.floor(Math.random()*10))*randomSign();
         e=(Math.round(Math.random()*40))*randomSign();
         f=(Math.round(Math.random()*80))*randomSign();
         let A=a-d;
@@ -46,20 +47,22 @@ function taoPhuongTrinh_CanBangCan() {
                 if (Delta === Math.floor(Delta)) {
                     let x_1 = (-B + Delta)/(2*A);
                     let x_2 = (-B - Delta)/(2*A);
-                    let zeroindex=0;
                     if (a*x_1*x_1+b*x_1+c >= 0 && d*x_1*x_1+e*x_1+f >=0) {
                         zeroindex+=1;
+                        //nice+=1;
                     }
                     if (a*x_2*x_2+b*x_2+c >= 0 && d*x_2*x_2+e*x_2+f >=0) {
                         zeroindex+=2;
+                        //nice+=1;
                     }
                     x1 = new Fraction( -B + Delta , 2*A );
                     x2 = new Fraction( -B - Delta , 2*A );
-                    nice=1;//đã lấy được bộ số cho phương trình. 
+                    nice =1; /// đã tìm thấy phương trình.
                 }                
             }
         }
     }
+    console.log(zeroindex);
     return [a,b,c,d,e,f,x1,x2,zeroindex];
 };
 
