@@ -1,3 +1,11 @@
+// Lớp 10. Chương 7, Bài 2. Giải bất phương trình bậc hai một ẩn.
+
+// 1. TRẮC NGHIỆM GIẢI BẤT PHƯƠNG TRÌNH BẬC HAI.
+// 2. TẬP XÁC ĐỊNH HÀM SỐ CÓ CĂN VỚI 2 NGHIỆM.
+// 3. TẬP XÁC ĐỊNH HÀM SỐ CÓ CĂN 1 NGHIỆM.
+// 4. TÌM THAM SỐ M ĐỂ PHƯƠNG TRÌNH CÓ 2 NGHIỆM PHÂN BIỆT, VÔ NGHIỆM, NGHIỆM KÉP DẠNG Ax^2 + (Mm+N)x + C = 0.
+
+
 function taoTamThucBacHai(yeuCau){ // tạo tam thức bậc hai với tham số là số nghiệm yêu cầu.
     let x1=new Fraction(1,1), x2 = new Fraction(1,1);
     let soNghiem=-1;
@@ -32,15 +40,14 @@ function taoTamThucBacHai(yeuCau){ // tạo tam thức bậc hai với tham số
             }else{
                 soNghiem=0;      
             }
-
         }
     }
     return [a,b,c,x1,x2,soNghiem];
 }
 
-// TRẮC NGHIỆM GIẢI BẤT PHƯƠNG TRÌNH BẬC HAI.
+// 1. TRẮC NGHIỆM GIẢI BẤT PHƯƠNG TRÌNH BẬC HAI.
 function taoTracNghiem_BatPhuongTrinhBacHai2Nghiem(){
-    let eq=taoTamThucBacHai(2);
+    let eq = taoTamThucBacHai(2);
     let dau = "";
     switch (Math.floor(Math.random()*4)) {
         case 0:
@@ -179,9 +186,9 @@ function taoTracNghiem_BatPhuongTrinhBacHai2Nghiem(){
         }
     });
 }
+// HẾT HÀM 1.
 
-// TRẮC NGHIỆM HỎI TẬP XÁC ĐỊNH CỦA HÀM SỐ CÓ CĂN BẬC 2.
-
+// 2. TẬP XÁC ĐỊNH HÀM SỐ CÓ CĂN VỚI 2 NGHIỆM.
 function taoTracNghiem_TapXacDinhHamSoCoCan2Nghiem(){
     let eq=taoTamThucBacHai(2);// tạo tam thức bậc hai dưới dấu căn.
     // tạo các biểu thức gây nhiễu
@@ -297,9 +304,9 @@ function taoTracNghiem_TapXacDinhHamSoCoCan2Nghiem(){
         }
     });
 }
+// HẾT HÀM 2
 
-
-// TẬP XÁC ĐỊNH HÀM SỐ CÓ CĂN 1 NGHIỆM.
+// 3. TẬP XÁC ĐỊNH HÀM SỐ CÓ CĂN 1 NGHIỆM.
 function taoTracNghiem_TapXacDinhHamSoCoCan1Nghiem(){
     let eq=taoTamThucBacHai(1);// tạo tam thức bậc hai dưới dấu căn.
     // tạo các biểu thức gây nhiễu
@@ -414,6 +421,13 @@ function taoTracNghiem_TapXacDinhHamSoCoCan1Nghiem(){
         }
     });
 }
+// HẾT HÀM 3.
+
+// 4. TÌM THAM SỐ M ĐỂ PHƯƠNG TRÌNH CÓ 2 NGHIỆM PHÂN BIỆT, VÔ NGHIỆM, NGHIỆM KÉP DẠNG Ax^2 + (Mm+N)x + C = 0.
+function timThamSo_phuongTrinh_coNghiem_voNghiem(){
+    
+}
+// HẾT HÀM 4.
 
 
 // hết các câu hỏi

@@ -1,3 +1,7 @@
+// Lớp 10. Chương 7. Bài 1. Dấu của tam thức bậc hai.
+
+// 1.   HỎI DẤU TAM THỨC BẬC HAI ĐẠT ĐƯỢC TRÊN KHOẢNG NÀO (CÓ 2 NGHIỆM)
+// 2.   HỎI BẢNG XÉT DẤU TAM THỨC BẬC HAI. (CÓ 2 NGHIỆM)
 
 function taoTamThucBacHai(yeuCau){ // tạo tam thức bậc hai với tham số là số nghiệm yêu cầu.
     let x1=new Fraction(1,1), x2 = new Fraction(1,1);
@@ -39,7 +43,7 @@ function taoTamThucBacHai(yeuCau){ // tạo tam thức bậc hai với tham số
     return [a,b,c,x1,x2,soNghiem];
 }
 
-//  HỎI DẤU TAM THỨC BẬC HAI ĐẠT ĐƯỢC TRÊN KHOẢNG NÀO. (CÓ 2 NGHIỆM)
+// 1.  HỎI DẤU TAM THỨC BẬC HAI ĐẠT ĐƯỢC TRÊN KHOẢNG NÀO. (CÓ 2 NGHIỆM)
 
 function taoTracNghiem_HoiDauTamThuc2Nghiem(){
     let eq=taoTamThucBacHai(2);
@@ -149,9 +153,9 @@ function taoTracNghiem_HoiDauTamThuc2Nghiem(){
         }
     });
 }
+// HẾT HÀM 1.
 
-// HỎI BẢNG XÉT DẤU TAM THỨC BẬC HAI. (CÓ 2 NGHIỆM)
-
+// 2. HỎI BẢNG XÉT DẤU TAM THỨC BẬC HAI. (CÓ 2 NGHIỆM)
 function taoTracNghiem_BangXetDauTamThuc2Nghiem(){
     // hàm ghi bảng xét dấu.
     function bangXetDau(x1,x2,dauHeSoA){
@@ -243,7 +247,7 @@ function taoTracNghiem_BangXetDauTamThuc2Nghiem(){
         }
     });
 }
-
+// HẾT HÀM 2.
 
 let content = document.querySelector(".content");
 let equation = document.querySelector(".equation");

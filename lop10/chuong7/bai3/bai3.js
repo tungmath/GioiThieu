@@ -5,7 +5,6 @@
 // 3. số nghiệm,
 // 4. tích nghiệm,
 // 5. tổng bình phương các nghiệm.
-// 6. nghiệm lớn/nhỏ trừ/chia nghiệm nhỏ/lớn.
 
 
 
@@ -178,17 +177,17 @@ function taoTracNghiem_HoiNghiem(){// câu hỏi trắc nghiệm dạng hỏi ng
 
     choices.push("Vô nghiệm");
 
-    if (x1.denom===1){
-        x_1=`${x1.numer}`;
+    if (x1.mauso===1){
+        x_1=`${x1.tuso}`;
     }else{
-        x_1=`\\dfrac{${x1.numer}}{${x1.denom}}`;
+        x_1=`\\dfrac{${x1.tuso}}{${x1.mauso}}`;
     };
     choices.push(katex.renderToString(`${x_1}`));
 
-    if (x2.denom===1){
-       x_2=`${x2.numer}`;
+    if (x2.mauso===1){
+       x_2=`${x2.tuso}`;
     }else{
-        x_2=`\\dfrac{${x2.numer}}{${x2.denom}}`;
+        x_2=`\\dfrac{${x2.tuso}}{${x2.mauso}}`;
     };
     choices.push(katex.renderToString(`${x_2}`));
 
@@ -261,7 +260,7 @@ function taoTracNghiem_HoiTong(){// câu hỏi trắc nghiệm dạng hỏi Tổ
                 x1=eq[6], x2=eq[7], sumindex=eq[8];
             }
         }
-        if (x1.numer*x2.numer!=0 && sumindex>0){
+        if (x1.tuso*x2.tuso!=0 && sumindex>0){
         // phương trình thỏa yêu cầu tạo đề khi ra 2 nghiệm khác nhau, khác 0 và nhận ít nhất 1 nghiệm.
             nice=1; // tìm thấy pt thỏa.
         }
@@ -275,25 +274,25 @@ function taoTracNghiem_HoiTong(){// câu hỏi trắc nghiệm dạng hỏi Tổ
 
     choices.push("Không có");
 
-    if (x1.denom===1){
-        x_1=`${x1.numer}`;
+    if (x1.mauso===1){
+        x_1=`${x1.tuso}`;
     }else{
-        x_1=`\\dfrac{${x1.numer}}{${x1.denom}}`;
+        x_1=`\\dfrac{${x1.tuso}}{${x1.mauso}}`;
     };
     choices.push(katex.renderToString(`${x_1}`));
 
-    if (x2.denom===1){
-       x_2=`${x2.numer}`;
+    if (x2.mauso===1){
+       x_2=`${x2.tuso}`;
     }else{
-        x_2=`\\dfrac{${x2.numer}}{${x2.denom}}`;
+        x_2=`\\dfrac{${x2.tuso}}{${x2.mauso}}`;
     };
     choices.push(katex.renderToString(`${x_2}`));
 
-    let sum = new Fraction( x1.numer*x2.denom + x2.numer*x1.denom , x1.denom*x2.denom );
-    if (sum.denom===1){
-        sum=`${sum.numer}`;
+    let sum = new Fraction( x1.tuso*x2.mauso + x2.tuso*x1.mauso , x1.mauso*x2.mauso );
+    if (sum.mauso===1){
+        sum=`${sum.tuso}`;
      }else{
-         sum=`\\dfrac{${sum.numer}}{${sum.denom}}`;
+         sum=`\\dfrac{${sum.tuso}}{${sum.mauso}}`;
      };
     choices.push(katex.renderToString(`${sum}`));
 
@@ -446,7 +445,7 @@ function taoTracNghiem_HoiTich(){// câu hỏi trắc nghiệm dạng hỏi Tíc
         }
         
         if (zeroindex===3){ // nhận cả hai nghiệm.
-            if ( x1.numer!=0 && x1.numer/x1.denom!=1 && x2.numer!=0 && x2.numer/x2.denom!=1){
+            if ( x1.tuso!=0 && x1.tuso/x1.mauso!=1 && x2.tuso!=0 && x2.tuso/x2.mauso!=1){
             // phương trình thỏa yêu cầu tạo đề khi ra 2 nghiệm khác nhau và đều khác 0 và 1.
                 nice=1; // tìm thấy pt thỏa.
             }
@@ -461,33 +460,33 @@ function taoTracNghiem_HoiTich(){// câu hỏi trắc nghiệm dạng hỏi Tíc
 
     let x_1=``, x_2=``;
 
-    if (x1.denom===1){
-        x_1=`${x1.numer}`;
+    if (x1.mauso===1){
+        x_1=`${x1.tuso}`;
     }else{
-        x_1=`\\dfrac{${x1.numer}}{${x1.denom}}`;
+        x_1=`\\dfrac{${x1.tuso}}{${x1.mauso}}`;
     };
     choices.push(katex.renderToString(`${x_1}`));
 
-    if (x2.denom===1){
-       x_2=`${x2.numer}`;
+    if (x2.mauso===1){
+       x_2=`${x2.tuso}`;
     }else{
-        x_2=`\\dfrac{${x2.numer}}{${x2.denom}}`;
+        x_2=`\\dfrac{${x2.tuso}}{${x2.mauso}}`;
     };
     choices.push(katex.renderToString(`${x_2}`));
 
-    let sum = new Fraction( x1.numer*x2.denom + x2.numer*x1.denom , x1.denom*x2.denom );
-    if (sum.denom===1){
-        sum=`${sum.numer}`;
+    let sum = new Fraction( x1.tuso*x2.mauso + x2.tuso*x1.mauso , x1.mauso*x2.mauso );
+    if (sum.mauso===1){
+        sum=`${sum.tuso}`;
      }else{
-         sum=`\\dfrac{${sum.numer}}{${sum.denom}}`;
+         sum=`\\dfrac{${sum.tuso}}{${sum.mauso}}`;
      };
     choices.push(katex.renderToString(`${sum}`));
 
-    let prod = new Fraction( x1.numer*x2.numer, x1.denom*x2.denom );
-    if (prod.denom===1){
-        prod=`${prod.numer}`;
+    let prod = new Fraction( x1.tuso*x2.tuso, x1.mauso*x2.mauso );
+    if (prod.mauso===1){
+        prod=`${prod.tuso}`;
      }else{
-        prod =`\\dfrac{${prod.numer}}{${prod.denom}}`;
+        prod =`\\dfrac{${prod.tuso}}{${prod.mauso}}`;
      };
     choices.push(katex.renderToString(`${prod}`));
 
@@ -557,7 +556,7 @@ function taoTracNghiem_HoiTongBinhPhuong(){// câu hỏi trắc nghiệm dạng 
             }
         }
         if (zeroindex===3){ // nhận cả hai nghiệm.
-            if ( x1.numer/x1.denom!=0 && x2.numer/x2.denom!=0){
+            if ( x1.tuso/x1.mauso!=0 && x2.tuso/x2.mauso!=0){
             // phương trình thỏa yêu cầu tạo đề khi ra 2 nghiệm khác nhau và đều khác 0.
                 nice=1; // tìm thấy pt thỏa.
             }
@@ -573,36 +572,36 @@ function taoTracNghiem_HoiTongBinhPhuong(){// câu hỏi trắc nghiệm dạng 
     let x_1=``, x_2=``;
 
     // nghiệm 0 là x1.
-    if (x1.denom===1){
-        x_1=`${x1.numer}`;
+    if (x1.mauso===1){
+        x_1=`${x1.tuso}`;
     }else{
-        x_1=`\\dfrac{${x1.numer}}{${x1.denom}}`;
+        x_1=`\\dfrac{${x1.tuso}}{${x1.mauso}}`;
     };
     choices.push(katex.renderToString(`${x_1}`));
 
     // nghiệm 1 là x2.
-    if (x2.denom===1){
-        x_2=`${x2.numer}`;
+    if (x2.mauso===1){
+        x_2=`${x2.tuso}`;
     }else{
-        x_2=`\\dfrac{${x2.numer}}{${x2.denom}}`;
+        x_2=`\\dfrac{${x2.tuso}}{${x2.mauso}}`;
     };
     choices.push(katex.renderToString(`${x_2}`));
 
     // nghiệm 2 là tổng x1 và x2.
-    let sum = new Fraction( x1.numer*x2.denom + x2.numer*x1.denom , x1.denom*x2.denom );
-    if (sum.denom===1){
-        sum=`${sum.numer}`;
+    let sum = new Fraction( x1.tuso*x2.mauso + x2.tuso*x1.mauso , x1.mauso*x2.mauso );
+    if (sum.mauso===1){
+        sum=`${sum.tuso}`;
     }else{
-        sum=`\\dfrac{${sum.numer}}{${sum.denom}}`;
+        sum=`\\dfrac{${sum.tuso}}{${sum.mauso}}`;
     };
     choices.push(katex.renderToString(`${sum}`));
     
     // nghiệm 3 tổng bình phương.
-    let squaresum = new Fraction( x1.numer*x1.numer*x2.denom*x2.denom+x2.numer*x2.numer*x1.denom*x1.denom, x1.denom*x2.denom*x1.denom*x2.denom );
-    if (squaresum.denom===1){
-        squaresum=`${squaresum.numer}`;
+    let squaresum = new Fraction( x1.tuso*x1.tuso*x2.mauso*x2.mauso+x2.tuso*x2.tuso*x1.mauso*x1.mauso, x1.mauso*x2.mauso*x1.mauso*x2.mauso );
+    if (squaresum.mauso===1){
+        squaresum=`${squaresum.tuso}`;
     }else{
-        squaresum =`\\dfrac{${squaresum.numer}}{${squaresum.denom}}`;
+        squaresum =`\\dfrac{${squaresum.tuso}}{${squaresum.mauso}}`;
     };
     choices.push(katex.renderToString(`${squaresum}`));
 

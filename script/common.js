@@ -1,3 +1,11 @@
+// CÁC HÀM DÙNG CHUNG TRÊN TOÀN TRANG.
+
+// hàm thay katex.renderToString bởi ngắn hơn
+function mathString(string){
+     return katex.renderToString(string);
+}
+
+// hàm trộn danh sách ngẫu nhiên
 function tronThuTu(danhSach){// danh sách có thứ tự. các phần tử đều khác nhau. kết quả là danh sách đã trộn.
     let doDai = danhSach.length;
     let danhSachTam = danhSach;
@@ -10,9 +18,43 @@ function tronThuTu(danhSach){// danh sách có thứ tự. các phần tử đ�
     return danhSachMoi;
 }
 
+// hàm tạo ký hiệu dấu.
+function kyHieuDau(){
+    let dau = ``;
+    if(Math.random()>0.5){
+        dau = `-`;
+    }
+    return dau;
+}
+
+// hàm tạo số nguyên
+function soNguyen(max){// giá trị nguyên trong khoảng -max tới max
+    let so = Math.floor(Math.random()*(max+1));
+    if (Math.random()>0.5){
+        so = -so;
+    }
+    return so;
+}
+
+// hàm tạo số nguyên khác 0:
+function soNguyenKhac0(max){// giá trị nguyên trong khoảng -max tới max
+    let so = Math.floor(Math.random()*max)+1;
+    // dấu ngẫu nhiên
+    if (Math.random()>0.5){
+        so = -so;
+    }
+    return so;
+}
+
+// hàm tạo số nguyên dương.
+function soNguyenDuong(max){
+    return Math.floor(Math.random()*max) + 1;
+}
+
+// tìm ước chung lớn nhất, greated common divisor, không phân biệt âm dương.
 function gcd(a,b) {// tìm ước chung lớn nhất, nếu có đúng 1 số khác 0 thì ước là số lớn hơn. cả hai là 0 thì ước là 1.
     let num=1;
-    if (a!==0 && b!==0) {
+    if (a!=0 && b!=0) {
         let num1=Math.abs(a);
         let num2=Math.abs(b);
         if (num1<num2){
@@ -30,69 +72,87 @@ function gcd(a,b) {// tìm ước chung lớn nhất, nếu có đúng 1 số kh
         }
     }
     return num;
-};
+}
 
+// tìm ước của a mà bình phương lên vẫn là ước của a, dùng trong rút gọn căn bậc 2 của số nguyên.
+function uocChinhPhuong(a){// tìm ước chính phương lớn nhất.
+    let uocChinhPhuong = Math.floor(Math.sqrt(a));
+    while (a%(uocChinhPhuong*uocChinhPhuong)!=0 & uocChinhPhuong>1){
+        uocChinhPhuong -=1;
+    }
+    return uocChinhPhuong;
+}
+
+
+// lớp phân số.
 class Fraction {
     constructor(n,d){
         let uoc=gcd(n,d);
         n=n/uoc;
         d=d/uoc;
-        this.numer=n;
-        this.denom=d;
-        if (this.denom<0){
-            this.denom = -this.denom;
-            this.numer = -this.numer;
+        this.tuso=n;
+        this.mauso=d;
+        if (this.mauso<0){
+            this.mauso = -this.mauso;
+            this.tuso = -this.tuso;
         }
     }
 
-    ghiPhanSo(phanSo){// phương thức ghi phân số ra thành chuỗi ký tự latex. ????? Đúng chưa ta ?????
-        if (phanSo.denom===1){
-            return `${phanSo.numer}`;
-        }else{
-            if (phanSo.numer<0){// khi tử âm và mẫu khác 1, đổi dấu trừ ra ngoài
-                return `-\\dfrac{${-phanSo.numer}}{${phanSo.denom}}`;
-            }else{
-                return `\\dfrac{${phanSo.numer}}{${phanSo.denom}}`;
-            }
-        };
+}
+
+// so sánh 2 phân số
+function soSanhPhanSo(a,b){
+    let hieu = a.tuso*b.mauso - a.mauso*b.tuso;
+    if (hieu > 0){
+        return `>`;
+    } else {
+        if (hieu < 0){
+            return `<`;
+        } else {
+            return `=`;
+        }
     }
 }
 
+// cộng 2 phân số
 function congPhanSo(a,b){
-    return new Fraction(a.numer*b.denom + a.denom*b.numer , a.denom*b.denom);
+    return new Fraction(a.tuso*b.mauso + a.mauso*b.tuso , a.mauso*b.mauso);
 }
 
+// trừ 2 phân số
 function truPhanSo(a,b){
-    return new Fraction(a.numer*b.denom - a.denom*b.numer , a.denom*b.denom);
+    return new Fraction(a.tuso*b.mauso - a.mauso*b.tuso , a.mauso*b.mauso);
 }
 
+// nhân 2 phân số
 function nhanPhanSo(a,b){
-    return new Fraction(a.numer*b.numer , a.denom*b.denom);
+    return new Fraction(a.tuso*b.tuso , a.mauso*b.mauso);
 }
 
+// chia 2 phân số
 function chiaPhanSo(a,b){
-    if (b.numer !=0){
-        return new Fraction(a.numer*b.denom , a.denom*b.numer);
+    if (b.tuso !=0){
+        return new Fraction(a.tuso*b.mauso , a.mauso*b.tuso);
     }else{
         return `Không thể chia cho 0!`;
     }
 }
 
-
+// ghi phân số ra dạng chuỗi latex
 function ghiPhanSo(phanSo){// hàm ghi phân số
-    if (phanSo.denom===1){
-        string=`${phanSo.numer}`;
+    if (phanSo.mauso===1){
+        string=`${phanSo.tuso}`;
     }else{
-        if (phanSo.numer<0){// khi tử âm và mẫu khác 1, đổi dấu trừ ra ngoài
-            string =`-\\dfrac{${-phanSo.numer}}{${phanSo.denom}}`;
+        if (phanSo.tuso<0){// khi tử âm và mẫu khác 1, đổi dấu trừ ra ngoài
+            string =`-\\dfrac{${-phanSo.tuso}}{${phanSo.mauso}}`;
         }else{
-            string =`\\dfrac{${phanSo.numer}}{${phanSo.denom}}`;
+            string =`\\dfrac{${phanSo.tuso}}{${phanSo.mauso}}`;
         }
     };
     return string;
 }
 
-function randomSign(){
+function randomSign(){// giờ không hiểu để sài trong bài nào???
     let sign = 1;
     if (Math.round(Math.random())===0) {
         sign=-1;
@@ -100,6 +160,7 @@ function randomSign(){
     return sign;
 }
 
+// ghi tam thức ax^2 + bx + c
 function trinomial(a,b,c) { // a, b, c với a khác 0.
     let string=``;
     if (a===1){
@@ -138,6 +199,7 @@ function trinomial(a,b,c) { // a, b, c với a khác 0.
     return string;
 }
 
+// ghi nhị thức ax + b
 function binomial(a,b){
     let string=``;
     if (a===1){
@@ -183,17 +245,12 @@ function binomial(a,b){
     return string;
 }
 
+// ghi căn bậc 2 của một số nguyên
 function ghiCanBacHai(a){
     let string =`0`;
-    let uocCanNguyen =1;
+
     // tìm ước là số chính phương
-    if (a>=0){
-        for (let i=1; i<=Math.sqrt(a);i++){ // quét hết các ước để tìm ước chính phương.
-            if (a%(i*i)===0){
-                uocCanNguyen=i;
-            }
-        }
-    }
+    let uocCanNguyen = uocChinhPhuong(a);
     // tìm được căn của ước chính phương thì ghi ra dạng căn bậc hai.
     if (a===1){
         string =`1`;
@@ -213,10 +270,11 @@ function ghiCanBacHai(a){
     return string;
 }
 
-function hienTracNghiem4LuaChon(dung,sai1,sai2,sai3){
+// hiện trắc nghiệm 4 lựa chọn, các hiệu ứng khi chọn bỏ chọn, câu đúng câu sai.
+function hienTracNghiem4LuaChon(dapan0,dapan1,dapan2,dapan3,viTriDung){
     // trộn
     map = tronThuTu([0,1,2,3]);
-    let newChoices = [dung,sai1,sai2,sai3];
+    let newChoices = [dapan0,dapan1,dapan2,dapan3];
     choices =[];
     for (let i=0;i<4; i++){
         choices.push( newChoices[ map[i] ] );
@@ -227,7 +285,7 @@ function hienTracNghiem4LuaChon(dung,sai1,sai2,sai3){
     choicesElement.innerHTML = '';
     let i=0;
 
-    for (const choice of choices){
+    for (const choice of choices){ // thêm id cho các nút choice là choice1, choice2, choice3, choice4
         choicesElement.innerHTML += `<button class="choice" id="choice${i}"><li>${choice}</li></button><br>`;
         i++;
     }
@@ -235,12 +293,12 @@ function hienTracNghiem4LuaChon(dung,sai1,sai2,sai3){
 
     // người dùng chọn đáp án nào thì đáp án đó xanh lá, các đáp án khác về bình thường.
     let userChoice=[];
-    let userChoiceIndex=0; // biến lưu thứ tự câu người dùng chọn
+    let userChoiceIndex=0; // biến lưu thứ tự câu người dùng chọn.
     for (let a=0 ; a<4 ; a++){
-        userChoice.push(document.getElementById('choice'+a));
+        userChoice.push(document.getElementById(`choice${a}`));
         userChoice[a].addEventListener('click', () => {
             userChoice[a].classList.add('userchoice');
-            userChoiceIndex=a+1; //lấy thứ tự câu người dùng chọn
+            userChoiceIndex=a+1; //lấy thứ tự câu người dùng chọn.
             for (let i=0 ; i<4 ; i++){
                 if (i!=a){
                     userChoice[i].classList.remove('userchoice');
@@ -250,7 +308,7 @@ function hienTracNghiem4LuaChon(dung,sai1,sai2,sai3){
     }
 
     // lấy chỉ số câu đúng sau khi trộn.
-    cauDung = map.indexOf(0); // câu đúng luôn ở đầu tiên.
+    cauDung = map.indexOf(viTriDung-1); // câu đúng - 1. vì list đánh số từ 0 còn thông thường ta dếm từ 1.
     // hết lấy chỉ số đáp án đúng.
 
     // gán câu đúng.

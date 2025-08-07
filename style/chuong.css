@@ -22,7 +22,7 @@ h1 {
     background-color: white;
     border: 0.5ex;
     border-color: black;
-    height: 400px;
+    height: 600px;
     width: 1000px;
 }
 
@@ -31,13 +31,13 @@ h1 {
     font-size:35pt;
     font-weight:normal;
     text-align: center;
-    height: 150px;
+    height: 250px;
     background-color: white;
 }
 
 .equation {
     font-size:30pt;
-    height: 150px;
+    height: 250px;
     text-align: center;
     background-color:burlywood;
 }
@@ -52,6 +52,7 @@ h1 {
     border-color: black;
     border-width:0.2ex;
     background-color: whitesmoke;
+    float:none ;
 }
 
 .correct{ /* đáp an đúng */
@@ -63,6 +64,7 @@ h1 {
 .wrong {
     border-color: red;
     border-width:1ex;
+    background-color: whitesmoke;
 }
 
 .userchoice { /* đáp án người dùng chọn*/
