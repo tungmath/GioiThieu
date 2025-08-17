@@ -1,6 +1,8 @@
 body {
   background-color:blue;
-  width:3000px;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
 }
 
 h1{
