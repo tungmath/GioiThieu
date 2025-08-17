@@ -1,4 +1,9 @@
 body {
   background-color:blue;
+  width:2000px;
+}
+
+h1{
+  color:yellow;
   text-align:center;
 }
