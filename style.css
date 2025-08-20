@@ -1,5 +1,5 @@
 body {
-  background-color:blue;
+  background-color:whitesmoke;
   margin: 0;
   display: flex;
   justify-content: center;
@@ -9,5 +9,5 @@ body {
 h1{
   color:yellow;
   text-align:center;
-  font-siza:50pt;
+  font-siza:500pt;
 }
